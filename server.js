@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var theMovieDb = require('themoviedb-javascript-library');
 var app = express();
 var PORT = process.env.PORT || 3000;
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/sg-webdev4-project2';
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/sg-project-3';
 
 // configure theMovieDb
 theMovieDb.common.api_key = process.env.TMDB_API_KEY;
