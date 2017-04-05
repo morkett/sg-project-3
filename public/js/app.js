@@ -19,7 +19,7 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
     })
     .state('app', {
       url: '/app/',
-      templateUrl: '/states/app.html',
+      templateUrl: '/states/search.html',
       //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [

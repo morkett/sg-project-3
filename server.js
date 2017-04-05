@@ -2,13 +2,9 @@ var express = require('express');
 var router = require('./api/config/router');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var theMovieDb = require('themoviedb-javascript-library');
 var app = express();
 var PORT = process.env.PORT || 3000;
 var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/sg-project-3';
-
-// configure theMovieDb
-theMovieDb.common.api_key = process.env.TMDB_API_KEY;
 
 mongoose.connect(MONGODB_URI, function (err) {
   if (err) {
@@ -16,6 +12,7 @@ mongoose.connect(MONGODB_URI, function (err) {
     process.exit(1);
   }
   console.log('Connected to database:', mongoose.connection.name);
+
 });
 
 app.use(function (req, res, next) {

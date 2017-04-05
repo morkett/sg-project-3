@@ -1,16 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var movieController = require('../controllers/movie.js');
 
-var favouritesController = require('../controllers/favourites');
-
-router.route('/favourites')
-  .get(favouritesController.getAll)
-  .post(favouritesController.createFavourites);
-
-router.route('/favouritess/:id')
-  .get(favouritesController.getFavourites)
-  .patch(favouritesController.updateFavourites)
-  .delete(favouritesController.deleteFavourites);
-
+ // custom routes
+router.route('/api/movies/search/:searchTerm')
+  .get(movieController.show);
 
 module.exports = router;
