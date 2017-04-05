@@ -1,5 +1,5 @@
 var express = require('express');
-var router = require('./config/router');
+var router = require('./api/config/router');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var theMovieDb = require('themoviedb-javascript-library');

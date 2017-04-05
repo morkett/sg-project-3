@@ -1,0 +1,64 @@
+<h2>This is the app bro</h2>
+<div ng-controller="MovieController as movies">
+
+
+
+    <div>
+      <div>
+        <input type="text" ng-model="movies.search" ng-model-options="{ debounce: 800 }" onclick="select()" placeholder="Enter full movie name" autofocus />
+      </div>
+    </div>
+<div ng-if="!movies.details">
+Loading results...
+</div>
+
+<div ng-if="movies.details.Response==='True'">
+<img ng-src="{{ movies.details.Poster=='N/A' ? 'http://placehold.it/150x220&text=N/A' : movies.details.Poster }}">
+
+<span>
+  <a href="http://imdb.com/title/{{ movies.details.imdbID }}" target="_blank">{{ movies.details.Title }}</a>
+</span>, {{ movies.details.Year }}
+
+<p><strong>Released on:</strong> {{ movies.details.Released }} ({{ movies.details.Runtime }})</p>
+
+<p>{{ movies.details.Plot }}</p>
+
+<p>
+  <div>
+    <span>Directors :</span> {{ movies.details.Director }}
+  </div>
+  <div>
+    <span>Actors :</span> {{ movies.details.Actors }}
+  </div>
+  <div>
+    <span>Genre :</span> {{ movies.details.Genre }}
+  </div>
+</p>
+
+<p>Ratings:<br>
+  <strong>IMDb Rating</strong>: <span>{{ movies.details.imdbRating }}</span><br>
+</p>
+
+<p>
+  <a ng-href="https://www.youtube.com/results?search_query={{ movies.details.Title }}+trailer" target="_blank">Watch Trailers!</a>
+  <a ng-href="http://www.amazon.in/s/ref=nb_sb_noss_1?url=search-alias%3Ddvd&field-keywords={{ movies.details.Title }}" target="_blank">Buy this movie!</a>
+</p>
+</div>
+
+<div ng-if="movies.details.Response==='False'">
+No results found.
+</div>
+
+
+<div>
+  <div ng-if="movies.related.Response!=='False'">
+  Related Results:<hr>
+
+  <ul>
+    <li ng-repeat="movie in related.Search">
+      <a href="#" id="{{ $index + 1 }}" ng-click="update(movie)">{{ movies.movie.Title }}</a>, {{ movies.movie.Year }}
+    </li>
+  </ul>
+</div>
+</div>
+</div>
