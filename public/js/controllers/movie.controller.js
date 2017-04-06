@@ -1,4 +1,4 @@
-function MovieController(MovieFactory, $stateParams){
+function MovieController($stateParams, MovieFactory ){
   var controller = this;
 
             ///////////////////////////
@@ -31,7 +31,7 @@ function MovieController(MovieFactory, $stateParams){
             ///////////////////////////
   controller.getSearchDetails = function () {
     controller.results = [];
-    MovieFactory.searchAll(controller.searchTerm).then(
+    MovieFactory.getAll(controller.searchTerm).then(
         (success) => {
           controller.results = success.data.results;
           console.log('MovieFactory.search: controller.results:', controller.results);
@@ -43,28 +43,27 @@ function MovieController(MovieFactory, $stateParams){
   };
 //^^^^^^^^ getSearch of all movies ^^^^^^^^^//
 
-
-//get single movie by title
-  controller.getMovie = function(){
+  controller.getOneMovie = function(){
     var movieId = $stateParams.movieId;
-
+    controller.results = [];
     MovieFactory.getOne(movieId).then(
-    function success(response){
-      console.log('todo: ',response);
-      controller.selectedMovie = response.data;
+    (success) => {
+      controller.results = success.data;
+      console.log('movie:', success, movieId);
     },
-    function error(error){
-      console.warn('Error getting todos: ', error);
-    }
-  );
+      (error) => {
+        console.warn('Error getting Movie:', error, movieId);
+      }
+    );
   };
-  function init() {
 
+  function init() {
+    // controller.selectedMovie = undefined;
   }
 
   init();
 }
-MovieController.$inject = ['MovieFactory'];
+MovieController.$inject = ['$stateParams', 'MovieFactory'];
 
 angular
   .module('myApp')

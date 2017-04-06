@@ -1,5 +1,13 @@
-<div ng-controller="MovieController as movies">
 
-<h2>Single movie details<h2>
+<section ng-init="movies.getOneMovie()">
 
-  </div>
+
+<h2>{{movies.results.title}}</h2>
+  <img  ng-if="result.backdrop_path !== null"
+  src="http://image.tmdb.org/t/p/w185//{{movies.results.poster_path}}"
+  alt="{{ result.title}}"/>
+<ul>
+  <li ng-repeat result in movies></li>
+</ul>
+
+</section>

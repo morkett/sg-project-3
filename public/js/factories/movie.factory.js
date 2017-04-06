@@ -2,11 +2,17 @@
 
 function MovieFactory($http) {
   return {
-    searchAll: (searchTerm) => {
+    getAll: (searchTerm) => {
       var searchString = searchTerm.split(' ').join('+');
       return $http({
         method: 'GET',
         url: `/api/movies/search/${searchString}`
+      });
+    },
+    getOne: (movieId) => {
+      return $http({
+        method: 'GET',
+        url: `/api/movies/${movieId}`
       });
     }
   };

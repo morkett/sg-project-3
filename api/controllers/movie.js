@@ -18,7 +18,29 @@ function showMovieSearch(req, res) {
     res.json(searchResultsJson);
   });
 }
+/////////////////////////////////////////////////////////////////////////////////
+function getOne(req,res) {
+  var movieId = req.params.movieId;
+
+  var url = `${tmdb.TMDB_BASE_URL}/movie/${movieId}?api_key=${tmdb.TMDB_API_KEY}`;
+
+  request(url, (error,response,body) => {
+    var singleMovieResultsJson;
+
+    if (error) {
+      console.warn('Could not get movie:', error);
+      res.status(500).json({ message: 'Could not get one movie - please check server logs' });
+      return;
+    }
+    // JSON.parse convertsstring into JSON
+    singleMovieResultsJson = JSON.parse(body);
+    res.json(singleMovieResultsJson);
+    console.log('movie: ',singleMovieResultsJson);
+  });
+}
+
 
 module.exports = {
-  show: showMovieSearch
+  show: showMovieSearch,
+  getOne: getOne
 };

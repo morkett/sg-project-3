@@ -1,5 +1,5 @@
 <h2>This is the app bro</h2>
-<div ng-controller="MovieController as movies">
+<div>
 <form>
   <input ng-model="movies.searchTerm">
     <input type="submit" ng-click="movies.getSearchDetails()">
@@ -7,19 +7,20 @@
 
   <ul>
     <li ng-repeat="result in movies.results |limitTo: movies.limit" >
+      <a href="#" ui-sref="movieDetails({movieId:result.id})">show this</a>
       <!-- ng-if no img then hide-->
       <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185"/>
-      <img ng-if="result.backdrop_path !== null"
+      <img  ng-if="result.backdrop_path !== null"
       src="http://image.tmdb.org/t/p/w185//{{result.backdrop_path}}"
-      ui-sref="app/movieDetails"
       alt="{{ result.title}}"/>
+      <input type="hidden" value="{{result.id}}"/>
       <strong>{{ result.title }}</strong> ({{ result.release_date }})<br>
     </li>
   </ul>
 <button ng-click="movies.incrementLimit()" ng-if="movies.limit < movies.results.length ">more</button>
-<p>array length:{{movies.results.length}}</p>
-<p>limit: {{movies.limit}}</p>
+<!-- <p>array length:{{movies.results.length}}</p>
+<p>limit: {{movies.limit}}</p> -->
 
-<button ng-click="movies.decrementLimit()" ng-if="movies.limit > movies.results.length ">less</button>
+<button ng-click="movies.decrementLimit()" ng-if="movies.limit > 5 ">less</button>
 
 </div>
