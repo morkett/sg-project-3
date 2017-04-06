@@ -1,9 +1,12 @@
+//factory makes the reguest to server side
+
 function MovieFactory($http) {
   return {
-    search: (searchTerm) => {
+    searchAll: (searchTerm) => {
+      var searchString = searchTerm.split(' ').join('+');
       return $http({
         method: 'GET',
-        url: `/api/movies/search/${searchTerm}`
+        url: `/api/movies/search/${searchString}`
       });
     }
   };

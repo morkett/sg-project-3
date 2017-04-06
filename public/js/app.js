@@ -17,9 +17,21 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
       url: '/authrequired',
       templateUrl: '/states/auth-required.html'
     })
-    .state('app', {
-      url: '/app/',
+    .state('app/search', {
+      url: '/app/search',
       templateUrl: '/states/search.html',
+      //resolve - before you go to this state you must resolve whatever is in here
+      resolve: {
+        currentAuth: [
+          'AuthFactory', (AuthFactory) => {
+            return AuthFactory.$requireSignIn();
+          }
+        ]
+      }
+    })
+    .state('app/movieDetails', {
+      url: '/app/movie/:movieId',
+      templateUrl: '/states/movieDetails.html',
       //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [

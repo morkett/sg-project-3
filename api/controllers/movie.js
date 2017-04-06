@@ -13,6 +13,7 @@ function showMovieSearch(req, res) {
       res.status(500).json({ message: 'Could not complete search - please check server logs' });
       return;
     }
+    // JSON.parse convertsstring into JSON
     searchResultsJson = JSON.parse(body);
     res.json(searchResultsJson);
   });
