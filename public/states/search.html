@@ -1,20 +1,27 @@
 <h2>This is the app bro</h2>
-<div>
-<form>
-  <input ng-model="movies.searchTerm">
-    <input type="submit" ng-click="movies.getSearchDetails()">
+<div ng-init="movies.getSearchDetails()">
+<form autocomplete="on">
+  <div class="placeholder"
+  placeholder="press enter to search">
+  <input ng-model="movies.searchTerm" ng-submit/>
+    <input type="submit" class="search-submit" ng-click="movies.getSearchDetails()">
+    </div>
 </form>
 
   <ul>
     <li ng-repeat="result in movies.results |limitTo: movies.limit" >
-      <a href="#" ui-sref="movieDetails({movieId:result.id})">show this</a>
+
       <!-- ng-if no img then hide-->
       <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185"/>
-      <img  ng-if="result.backdrop_path !== null"
+      <a href="#" ui-sref="movieDetails({movieId:result.id})">
+        <img  ng-if="result.backdrop_path !== null"
       src="http://image.tmdb.org/t/p/w185//{{result.backdrop_path}}"
       alt="{{ result.title}}"/>
+        </a>
       <input type="hidden" value="{{result.id}}"/>
+      <a href="#" ui-sref="movieDetails({movieId:result.id})">
       <strong>{{ result.title }}</strong> ({{ result.release_date }})<br>
+    </a>
     </li>
   </ul>
 <button ng-click="movies.incrementLimit()" ng-if="movies.limit < movies.results.length ">more</button>

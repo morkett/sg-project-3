@@ -1,9 +1,14 @@
 function MovieController($stateParams, MovieFactory ){
   var controller = this;
+  var singleVideo = '2e-eXJ6HgkQ';
+
+  controller.singleVidUrl = singleVideo;
 
             ///////////////////////////
 //////////// Show More/Less Of Results ////////////
-           ///////////////////////////
+// Allow the use of youtube video urls
+              ///////////////////////////
+
 
   var firstLimit = 5;
   var limitStep = 3;

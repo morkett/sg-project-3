@@ -1,0 +1,29 @@
+.placeholder
+{
+    position: relative;
+    text-align: right;
+    color: transparent;
+    width: 50%;
+}
+
+.placeholder input {
+  width: 100%;
+  text-align: left;
+}
+
+
+.placeholder::after
+{
+    position: absolute;
+    text-align: right;
+    left: 60%;
+    top: 3px;
+    content: attr(placeholder);
+    pointer-events: none;
+    opacity: 0.1;
+    color: #000;
+}
+
+.search-submit {
+  visibility: hidden;
+}
