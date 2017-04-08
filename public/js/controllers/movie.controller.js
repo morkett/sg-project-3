@@ -7,10 +7,8 @@ function MovieController($stateParams, MovieFactory ){
   controller.selectedIndex = false;
 
   controller.itemClicked = function ($index) {
-    console.log($index);
-    if ($index){
-      controller.selectedIndex = $index;
-    }
+    controller.selectedIndex = $index;
+
   };
 
 
@@ -64,6 +62,7 @@ function MovieController($stateParams, MovieFactory ){
             ///////////////////////////
   controller.getSearchDetails = function () {
     controller.results = [];
+    controller.searchTerm = 'Toy Story';
     MovieFactory.getAll(controller.searchTerm).then(
         (success) => {
           controller.results = success.data.results;

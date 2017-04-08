@@ -28,7 +28,7 @@
 
 <body ng-controller = "AuthController as auth" >
 
-  <nav class="headerElement">
+  <nav class="headerElement fade-in">
     <h1>Sparta apps</h1>
     <a ng-if="!auth.user" ui-sref="home">Home</a>
     <a ng-if="auth.user" ui-sref="app/search">Go To App</a>

@@ -10,7 +10,7 @@
 </form>
 
   <ul>
-    <li ng-repeat="result in movies.results |limitTo: movies.limit" >
+    <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
 
       <!-- ng-if no img then hide-->
       <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185" class="fade-in"/>
@@ -25,13 +25,14 @@
         <!-- slice to reduce date -->
       <strong>{{ result.title }}</strong> ({{ result.release_date.slice(0, -6); }})<br>
       <strong>{{ result.popularity }}</strong> <br>
+      <strong>{{ result.vote_average }}</strong> <br>
     </a>
     </li>
   </ul>
-<button ng-click="movies.incrementLimit()" ng-if="movies.limit < movies.results.length ">more</button>
+<!-- <button ng-click="movies.incrementLimit()" ng-if="movies.limit < movies.results.length ">more</button> -->
 <!-- <p>array length:{{movies.results.length}}</p>
 <p>limit: {{movies.limit}}</p> -->
 
-<button ng-click="movies.decrementLimit()" ng-if="movies.limit > 5 ">less</button>
+<!-- <button ng-click="movies.decrementLimit()" ng-if="movies.limit > 5 ">less</button> -->
 
 </div>

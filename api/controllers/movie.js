@@ -7,7 +7,7 @@ var tmdb = require('../config/tmdb');
 
 function showMovieSearch(req, res) {
   var searchTerm = req.params.searchTerm;
-  var url = `${tmdb.TMDB_BASE_URL}/search/movie?query=${searchTerm}&api_key=${tmdb.TMDB_API_KEY}`;
+  var url = `${tmdb.TMDB_BASE_URL}/search/movie?query=${searchTerm}&api_key=${tmdb.TMDB_API_KEY}&sort_by=vote_average.desc`;
 
   request(url, (error, response, body) => {
     var searchResultsJson;
@@ -24,38 +24,22 @@ function showMovieSearch(req, res) {
   });
 }
 
-      ///////////////////////////
-//////////// in Theatres ////////////
-    ///////////////////////////
-function showInTheatres(req, res) {
-  var urlInTheatres = `${tmdb.TMDB_BASE_URL}/discover/movie?primary_release_date.gte=2017-04-11&primary_release_date.lte=2017-05-30?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
-  request(urlInTheatres, (error, response, body) => {
-    var searchResultsJson;
-
-    if (error) {
-      console.warn('Could not find in theatres:', error);
-      res.status(500).json({ message: 'Could not find in theatres - please check server logs' });
-      return;
-    }
-        // JSON.parse convertsstring into JSON
-    searchResultsJson = JSON.parse(body);
-    console.log(urlInTheatres);
-    res.json(searchResultsJson);
-  });
-}
 
     ///////////////////////////
-//////////// getOne ////////////
+//////////// getOne movie, video, similar ////////////
     ///////////////////////////
 function getOne(req,res) {
   var movieId = req.params.movieId;
 
   var url = `${tmdb.TMDB_BASE_URL}/movie/${movieId}?api_key=${tmdb.TMDB_API_KEY}`;
   var urlVids =`${tmdb.TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${tmdb.TMDB_API_KEY}`;
+  var urlSimilar = `${tmdb.TMDB_BASE_URL}/movie/${movieId}/recommendations?&api_key=${tmdb.TMDB_API_KEY}&language=en-US`;
+
 
   request(url, (error,response,body) => {
     var singleMovieResultsJson;
     var singleVideoResultsJson;
+    var similarMoviesResultsJson;
 
     singleMovieResultsJson = JSON.parse(body);
     // if (error) {
@@ -64,21 +48,30 @@ function getOne(req,res) {
     //   return;
     // }
     request(urlVids, (error,response,body) => {
-
+      singleVideoResultsJson = JSON.parse(body);
       // if (error) {
       //   console.warn('Could not get video:', error);
       //   res.status(500).json({ message: 'Could not get one video - please check server logs' });
       //   return;
       // }
-      singleVideoResultsJson = JSON.parse(body);
-      console.log('VIDEO',singleVideoResultsJson);
-      var responseJson = {
-        singleVideoResultsJson,
-        singleMovieResultsJson
-      };
-      res.json(responseJson);
+      request(urlSimilar, (error,response,body) => {
 
-      console.log('movie: ',responseJson);
+        // if (error) {
+        //   console.warn('Could not get video:', error);
+        //   res.status(500).json({ message: 'Could not get one video - please check server logs' });
+        //   return;
+        // }
+        similarMoviesResultsJson = JSON.parse(body);
+        console.log('VIDEO',singleVideoResultsJson);
+        var responseJson = {
+          singleVideoResultsJson,
+          singleMovieResultsJson,
+          similarMoviesResultsJson
+        };
+        res.json(responseJson);
+
+        console.log('movies similar: ',similarMoviesResultsJson);
+      });
     });
 
   });
@@ -90,10 +83,24 @@ function getMainList(req,res) {
 
   var urlInTheatres = `${tmdb.TMDB_BASE_URL}/discover/movie?primary_release_date.gte=2017-04-11&primary_release_date.lte=2017-05-30?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
   var urlPopular = `${tmdb.TMDB_BASE_URL}/discover/movie?sort_by=popularity.asc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  // var urlKids = `${tmdb.TMDB_BASE_URL}/discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc?&api_key=${tmdb.TMDB_API_KEY}&language=en-US`;
+  var urlSciFi = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_SCIFI}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  var urlRomance = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_ROMANCE}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  var urlHorror = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_HORROR}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  var urlComedy = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_COMEDY}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  var urlAni = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_ANI}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
+  var urlAction = `${tmdb.TMDB_BASE_URL}/discover/movie?with_genres=${tmdb.GENRE_ACTION}&sort_by=vote_average.desc?&api_key=${tmdb.TMDB_API_KEY}&sort_by=popularity.desc&language=en-US`;
 
   request(urlInTheatres, (error,response,body) => {
     var inTheatresResultsJson;
     var popularResultsJson;
+    // var kidsResultsJson;
+    var sciFiResultsJson;
+    var romanceResultsJson;
+    var horrorResultsJson;
+    var comedyResultsJson;
+    var animationResultsJson;
+    var actionResultsJson;
 
     inTheatresResultsJson = JSON.parse(body);
     // if (error) {
@@ -102,25 +109,62 @@ function getMainList(req,res) {
     //   return;
     // }
     request(urlPopular, (error,response,body) => {
-
+      popularResultsJson = JSON.parse(body);
       // if (error) {
       //   console.warn('Could not get video:', error);
       //   res.status(500).json({ message: 'Could not get one video - please check server logs' });
       //   return;
       // }
-      popularResultsJson = JSON.parse(body);
-      console.log('popular',popularResultsJson);
-      var responseJson = {
-        inTheatresResultsJson,
-        popularResultsJson
-      };
-      res.json(responseJson);
+      // request(urlKids, (error,response,body) => {
+      //   kidsResultsJson = JSON.parse(body);
 
-      console.log('theatreResultsJson: ',responseJson.inTheatresResultsJson);
+      request(urlSciFi, (error,response,body) => {
+        sciFiResultsJson = JSON.parse(body);
+
+        request(urlRomance, (error,response,body) => {
+          romanceResultsJson = JSON.parse(body);
+
+
+          request(urlHorror, (error,response,body) => {
+            horrorResultsJson = JSON.parse(body);
+
+            request(urlComedy, (error,response,body) => {
+              comedyResultsJson = JSON.parse(body);
+
+              request(urlAni, (error,response,body) => {
+                animationResultsJson = JSON.parse(body);
+
+                request(urlAction, (error,response,body) => {
+                  actionResultsJson = JSON.parse(body);
+
+                  var responseJson = {
+                    inTheatresResultsJson,
+                    popularResultsJson,
+                    // kidsResultsJson,
+                    sciFiResultsJson,
+                    romanceResultsJson,
+                    horrorResultsJson,
+                    comedyResultsJson,
+                    animationResultsJson,
+                    actionResultsJson
+                  };
+                  res.json(responseJson);
+
+                  console.log('ResultsJson:',responseJson);
+                });
+
+              });
+            });
+          });
+        });
+      });
     });
-    // JSON.parse convertsstring into JSON
-
   });
+  // });
+// JSON.parse convertsstring into JSON
+
+
+
 }
 
 
