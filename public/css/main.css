@@ -315,16 +315,16 @@ overflow: hidden;
 .movie-horizontal ul, .similar-horizontal ul {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: row;
   height: 100%;
-  width: 100%;
-  margin-left: 1600px;
+  width: auto;
+  /*margin-left: 1600px;*/
   /*border: 1px solid blue;*/
 }
 .similar-horizontal ul {
-  margin-left: 1700px;
+  /*margin-left: 1700px;*/
 }
 
 .movie-horizontal-inner, .similar-horizontal-inner {

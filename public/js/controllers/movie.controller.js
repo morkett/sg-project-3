@@ -62,7 +62,7 @@ function MovieController($stateParams, MovieFactory ){
             ///////////////////////////
   controller.getSearchDetails = function () {
     controller.results = [];
-    controller.searchTerm = 'Toy Story';
+    
     MovieFactory.getAll(controller.searchTerm).then(
         (success) => {
           controller.results = success.data.results;

@@ -10,6 +10,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
   <script src="//www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
   <script src="//cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+  <script src="//cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
 
 
   <!-- JS FILES -->
@@ -37,7 +39,7 @@
 
     <div ng-if="auth.user">
     <p>  <strong>
-        Welcome {{ auth.user.uid }}!
+        Welcome {{ auth.user.email.substring(0, auth.user.email.lastIndexOf("@")) }}!
       </strong>
     </p>
     <p><a href="#" ng-click="auth.signOut()">Sign Out</a></p>

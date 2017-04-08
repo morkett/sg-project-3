@@ -9,6 +9,8 @@
     </div>
 </form>
 
+<div class="similar-horizontal-container">
+    <div class="similar-horizontal">
   <ul>
     <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
 
@@ -24,15 +26,11 @@
       <a href="#" ui-sref="movieDetails({movieId:result.id})" class="fade-in">
         <!-- slice to reduce date -->
       <strong>{{ result.title }}</strong> ({{ result.release_date.slice(0, -6); }})<br>
-      <strong>{{ result.popularity }}</strong> <br>
-      <strong>{{ result.vote_average }}</strong> <br>
     </a>
     </li>
+    <li class="phantom"></li>
+
   </ul>
-<!-- <button ng-click="movies.incrementLimit()" ng-if="movies.limit < movies.results.length ">more</button> -->
-<!-- <p>array length:{{movies.results.length}}</p>
-<p>limit: {{movies.limit}}</p> -->
-
-<!-- <button ng-click="movies.decrementLimit()" ng-if="movies.limit > 5 ">less</button> -->
-
+</div>
+</div>
 </div>
