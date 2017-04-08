@@ -31,28 +31,32 @@
   <nav class="headerElement">
     <h1>Sparta apps</h1>
     <a ng-if="!auth.user" ui-sref="home">Home</a>
+    <a ng-if="auth.user" ui-sref="app/search">Go To App</a>
+    <a href="#" ui-sref="appFront">appFront</a>
+    <section class="userWidget headerElement">
+
+    <div ng-if="auth.user">
+    <p>  <strong>
+        Welcome {{ auth.user.uid }}!
+      </strong>
+    </p>
+    <p><a href="#" ng-click="auth.signOut()">Sign Out</a></p>
+
+    </div>
+
+    <div ng-if="!auth.user">
+      <p>Welcome new person!!</p>
+
+      <a href="#" ui-sref="login">Click Here</a> to sign in.
+    </div>
+
+  </section>
   </nav>
 
-  <section class="userWidget headerElement">
 
-  <div ng-if="auth.user">
-  <p>  <strong>
-      Welcome {{ auth.user.uid }}!
-    </strong>
-  </p>
-  <p><a href="#" ng-click="auth.signOut()">Sign Out</a></p>
 
-  </div>
+  <section class="indexSection" ng-controller="MovieController as movies" ui-view >
 
-  <div ng-if="!auth.user">
-    <p>Welcome new person!!</p>
-
-    <a href="#" ui-sref="login">Click Here</a> to sign in.
-  </div>
-
-</section>
-
-  <section ng-controller="MovieController as movies" ui-view >
     <!-- states get rendered here  -->
   </section>
 

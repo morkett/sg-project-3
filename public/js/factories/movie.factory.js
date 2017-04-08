@@ -14,6 +14,12 @@ function MovieFactory($http) {
         method: 'GET',
         url: `/api/movies/${movieId}`
       });
+    },
+    getMainList: () => {
+      return $http({
+        method: 'GET',
+        url: `/api/movies/getMainList`
+      });
     }
   };
 }

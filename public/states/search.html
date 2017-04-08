@@ -1,4 +1,5 @@
-<h2>This is the app bro</h2>
+<a href="#" ui-sref="home">Back</a>
+<h2>Find A Movie</h2>
 <div ng-init="movies.getSearchDetails()">
 <form autocomplete="on">
   <div class="placeholder"
@@ -12,15 +13,18 @@
     <li ng-repeat="result in movies.results |limitTo: movies.limit" >
 
       <!-- ng-if no img then hide-->
-      <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185"/>
+      <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185" class="fade-in"/>
       <a href="#" ui-sref="movieDetails({movieId:result.id})">
         <img  ng-if="result.backdrop_path !== null"
       src="http://image.tmdb.org/t/p/w185//{{result.backdrop_path}}"
+      class="fade-in"
       alt="{{ result.title}}"/>
         </a>
       <input type="hidden" value="{{result.id}}"/>
-      <a href="#" ui-sref="movieDetails({movieId:result.id})">
-      <strong>{{ result.title }}</strong> ({{ result.release_date }})<br>
+      <a href="#" ui-sref="movieDetails({movieId:result.id})" class="fade-in">
+        <!-- slice to reduce date -->
+      <strong>{{ result.title }}</strong> ({{ result.release_date.slice(0, -6); }})<br>
+      <strong>{{ result.popularity }}</strong> <br>
     </a>
     </li>
   </ul>

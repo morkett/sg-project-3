@@ -1,8 +1,21 @@
 function MovieController($stateParams, MovieFactory ){
   var controller = this;
-  var singleVideo = '2e-eXJ6HgkQ';
 
-  controller.singleVidUrl = singleVideo;
+
+
+
+  controller.selectedIndex = false;
+
+  controller.itemClicked = function ($index) {
+    console.log($index);
+    if ($index){
+      controller.selectedIndex = $index;
+    }
+  };
+
+
+
+
 
             ///////////////////////////
 //////////// Show More/Less Of Results ////////////
@@ -29,7 +42,22 @@ function MovieController($stateParams, MovieFactory ){
     console.log('controller.limit:',controller.limit);
   };
   //^^^^^^^^ Show More/Less Of Results ^^^^^^^^^//
-
+  ///////////////////////////
+//////////// get in getMainList ////////////
+  ///////////////////////////
+  controller.getMainList = function () {
+    controller.results = [];
+    MovieFactory.getMainList().then(
+(success) => {
+  controller.results = success.data;
+  console.log('getMainList: controller.results:', success.data);
+},
+(error) => {
+  console.warn('getMainList.search: no results', error);
+}
+);
+  };
+//^^^^^^^^ get in getMainList ^^^^^^^^^//
 
             ///////////////////////////
 //////////// getSearch of all movies ////////////

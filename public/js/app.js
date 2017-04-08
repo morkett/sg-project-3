@@ -18,7 +18,7 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
       templateUrl: '/states/auth-required.html'
     })
     .state('app/search', {
-      url: '/app/search/',
+      url: '/search/',
       templateUrl: '/states/search.html',
       //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
@@ -30,8 +30,20 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
       }
     })
     .state('movieDetails', {
-      url: '/api/movies/:movieId',
+      url: '/movie/:movieId',
       templateUrl: '/states/movieDetails.html',
+      //resolve - before you go to this state you must resolve whatever is in here
+      resolve: {
+        currentAuth: [
+          'AuthFactory', (AuthFactory) => {
+            return AuthFactory.$requireSignIn();
+          }
+        ]
+      }
+    })
+    .state('appFront', {
+      url: '/getMainList',
+      templateUrl: '/states/appFront.html',
       //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [
