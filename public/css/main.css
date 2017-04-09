@@ -1,4 +1,4 @@
-/*RESETS*/
+/*RESETS*/ /* black rgba(26, 26, 26, 1) */
 
 html,
 body,
@@ -150,7 +150,10 @@ table
 
 
 /*body*/
-
+html
+{
+    background-color: #1a1a1a;
+}
 body
 {
     font-family: 'Rubik', sans-serif;
@@ -168,7 +171,7 @@ body
     height: 100vh;
     padding-top: 50px;
 
-    background: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, .45)), url(../images/bg.jpg);
+    background: linear-gradient( rgba(26, 26, 26, 1), rgba(26, 26, 26, .45)), url(../images/bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -189,14 +192,12 @@ nav
     width: 100vw;
     height: 60px;
     /*border: 1px solid red;*/
-
-    background:    -moz-linear-gradient(top, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
+    /*background:    -moz-linear-gradient(top, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
     background: -webkit-linear-gradient(top, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
-    background:         linear-gradient(to bottom, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
+    background:         linear-gradient(to bottom, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);*/
 
     justify-content: space-around;
     align-items: center;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#070707', endColorstr='#000e0e0e', GradientType=0);
 }
 
 nav h1
@@ -264,6 +265,12 @@ nav h1
     padding: auto 34px;
 
     text-align: center;
+}
+
+.btn-large,
+.btn-large:hover
+{
+    width: 450px;
 }
 
 /*******************/
@@ -335,11 +342,143 @@ nav h1
 
     width: 100%;
     height: 100%;
+    /*background-color: #1a1a1a;*/
 
     justify-content: center;
     align-items: center;
 }
 
+.signUp-container h2
+{
+    font-size: 2em;
+
+    text-align: center;
+
+    text-shadow: 1px 1px 10px #000;
+}
+
+.signUp
+{
+    width: 500px;
+    height: 500px;
+}
+
+.signUp input
+{
+    font-size: 2em;
+
+    width: 100%;
+    height: 60px;
+    margin: 25px 0;
+
+    text-align: center;
+
+    color: #fff;
+    border-color: transparent;
+    background: #007849;
+}
+
+.signUp input:focus
+{
+    font-size: 2em;
+
+    text-align: left;
+
+    color: rgba(255, 255, 255, 1);
+}
+
+input:focus::-webkit-input-placeholder
+{
+    font-size: .95em;
+
+    transition: all .2s linear;
+    transform: translateY(-20px);
+}
+
+.signUpEmailWrap
+{
+    position: relative;
+}
+
+.signUpEmailWrap label
+{
+    position: absolute;
+    top: 50px;
+    left: 10px;
+
+    transition: all .2s linear;
+
+    color: rgba(255, 255, 255, .7);
+}
+
+#signUpPasswordLabel
+{
+    position: absolute;
+    top: 200px;
+    left: 10px;
+
+    transition: all .2s linear;
+
+    color: rgba(255, 255, 255, .7);
+}
+
+.signUpEmailWrap input:focus + #signUpLabelEmail,
+#signUpPassword:focus + #signUpPasswordLabel
+{
+    font-size: .8em;
+
+    transition: all .2s linear;
+    transform: translateY(-18px);
+}
+
+
+
+.signUpEmailWrap input:focus
+{
+    font-size: 2em;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+
+.inputError
+{
+    border: 2px solid red;
+}
+
+.inputErrorLabel
+{
+    transition: color 0s linear, transform .2s linear;
+
+    color: red!important;
+    border: none;
+}
+
+.errorMessage
+{
+    color: red;
+}
+
+.alreadyLogged
+{
+    font-size: 2em;
+}
+
+.alreadyLoggedWrap
+{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
 .placeholder
 {
     position: relative;
@@ -514,7 +653,7 @@ section
     width: 100vw;
     height: 100vh;
 
-    background: #00e676;
+    background: rgba(26, 26, 26, 1);
 }
 
 .cs-loader-inner
@@ -738,18 +877,17 @@ section
 .appFront
 {
     position: relative;
+
+    background: rgba(26, 26, 26, 1);
 }
 
 .appFront h3
 {
-    position: absolute;
+    position: relative;
     z-index: 900;
     left: 0;
 
-    width: 120px;
-    height: 200px;
-
-    background-color: #fff;
+    color: #fff;
     /*border: 1px solid yellow;*/
 }
 

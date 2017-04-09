@@ -1,28 +1,39 @@
 <section class="signUp-container">
-<h2>SignUp</h2>
-
-<section class="signup" ng-if="!auth.user">
 
 
-  <div>
-    Email: <input type="text" ng-model="auth.email">
+<section class="signUp" ng-if="!auth.user">
+<h2>Sign Up</h2>
+
+  <div class="signUpEmailWrap">
+    <input type="text" name="signUpEmail" id="signUpEmail" ng-model="auth.email"  ng-class="{inputError: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}">
+    <label id="signUpLabelEmail" for="signUpEmail"
+  ng-class="{inputErrorLabel: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}"
+    >Email</label>
+
   </div>
 
   <div>
-    Password: <input type="password" ng-model="auth.password">
+    <input id="signUpPassword" name="signUpPassword" type="password" ng-model="auth.password"
+  ng-class="{inputError: auth.error.code === 'auth/weak-password'}">
+    <label for="signUpPassword"
+    id="signUpPasswordLabel"
+    ng-class="{inputErrorLabel: auth.error.code === 'auth/weak-password' || ng-dirty}"
+    >Password</label>
   </div>
 
   <br>
 
-  <button ng-click="auth.createUser()">Create User</button>
+  <button ng-click="auth.createUser()" ui-sref="appFront">Create Account</button>
 
-  <p ng-if="auth.error">
-    Error: <strong>{{ auth.error }}</strong>
+  <p ng-if="auth.error" class="errorMessage">
+    Error: <strong>{{ auth.error.message }}</strong>
   </p>
 
 </section>
 
-<section ng-if="auth.user">
-  <p>Don't be silly. You are already logged in...</p>
+<section ng-if="auth.user" class="alreadyLoggedWrap">
+  <p class="alreadyLogged">You are already logged in, no need to sign up again.</p>
+  <a ui-sref="appFront" class="sign-up-btn">Go To App</a>
+  <a class="sign-up-btn btn-large" ng-click="auth.signOutNewUser()">Sign out and create new user. </a>
 </section>
 </section>
