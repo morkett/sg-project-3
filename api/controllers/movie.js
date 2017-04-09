@@ -7,7 +7,7 @@ var tmdb = require('../config/tmdb');
 
 function showMovieSearch(req, res) {
   var searchTerm = req.params.searchTerm;
-  var url = `${tmdb.TMDB_BASE_URL}/search/movie?query=${searchTerm}&api_key=${tmdb.TMDB_API_KEY}&sort_by=vote_average.desc`;
+  var url = `${tmdb.TMDB_BASE_URL}/search/movie?query=${searchTerm}&api_key=${tmdb.TMDB_API_KEY}`;
 
   request(url, (error, response, body) => {
     var searchResultsJson;

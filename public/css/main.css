@@ -160,6 +160,8 @@ body
     font-size: 16px;
 
     color: #fff;
+    background: url(../images/bg.jpg) center center no-repeat;
+    background-size: cover;
 }
 
 
@@ -167,14 +169,13 @@ body
 {
     position: relative;
 
+    overflow-y: scroll;
+
     box-sizing: border-box;
     height: 100vh;
-    padding-top: 50px;
+    padding-top: 35px;
 
-    background: linear-gradient( rgba(26, 26, 26, 1), rgba(26, 26, 26, .45)), url(../images/bg.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background: rgba(26, 26, 26, .45);
 }
 
 
@@ -187,26 +188,30 @@ nav
     position: fixed;
     z-index: 999;
 
-    display: flex;
+    display: block;
 
     width: 100vw;
     height: 60px;
-    /*border: 1px solid red;*/
-    /*background:    -moz-linear-gradient(top, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
-    background: -webkit-linear-gradient(top, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);
-    background:         linear-gradient(to bottom, rgba(7, 7, 7, 1) 0%, rgba(14, 14, 14, 0) 100%);*/
 
-    justify-content: space-around;
-    align-items: center;
+    background: rgba(26, 26, 26, 1);
 }
 
-nav h1
+.logo-wrap
 {
     font-size: 2em;
 
-    margin-left: -300px;
+    display: flex;
+
+    width: 300px;
+    height: 60px;
+
+    cursor: pointer;
+    vertical-align: middle;
 
     text-shadow: 1px 1px 10px #000;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .sign-in-btn,
@@ -223,11 +228,41 @@ nav h1
     line-height: normal;
 
     position: relative;
-    left: 300px;
+
+    display: inline-block;
+    /*left: 300px;*/
+    /*display: block;*/
+
+    width: 80px;
+    height: 20px;
+    padding: 7px 17px;
+
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: .15em;
+
+    color: #fff;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    background-color: #007849;
+
+    align-self: center;
+}
+
+.sign-out-btn
+{
+    font-size: 1em;
+    font-weight: 400;
+    line-height: normal;
+
+    position: relative;
+    /*left: 300px;*/
 
     display: block;
 
-    width: 80px;
+    width: 90px;
     height: 20px;
     padding: 7px 17px;
 
@@ -272,6 +307,13 @@ nav h1
 {
     width: 450px;
 }
+
+.x-large,
+.x-large:hover
+{
+    width: 100%;
+}
+
 
 /*******************/
 /*HOME PAGE*/
@@ -374,15 +416,16 @@ nav h1
     text-align: center;
 
     color: #fff;
-    border-color: transparent;
-    background: #007849;
+    border: 2px solid #007849;
+    /*border-color: transparent;*/
+    background: rgba(26, 26, 26, 1);
 }
 
 .signUp input:focus
 {
     font-size: 2em;
 
-    text-align: left;
+    text-align: center;
 
     color: rgba(255, 255, 255, 1);
 }
@@ -463,6 +506,10 @@ input:-webkit-autofill:active
 
 .errorMessage
 {
+    margin-top: 10px;
+
+    text-align: center;
+
     color: red;
 }
 
@@ -515,6 +562,7 @@ input:-webkit-autofill:active
 {
     visibility: hidden;
 }
+
 
 .trailer-bg
 {
@@ -645,13 +693,15 @@ section
 
 .loading
 {
-    position: fixed;
+    position: absolute;
     z-index: 999;
     top: 0;
     left: 0;
 
+    overflow: hidden;
+
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 
     background: rgba(26, 26, 26, 1);
 }
@@ -780,9 +830,10 @@ section
     overflow: hidden;
 
     width: 100vw;
+    height: 150px;
+    margin: 0 0;
+
     /*border: 1px solid green;*/
-    height: 200px;
-    margin: 50px 0;
 }
 
 .movie-horizontal,
@@ -790,28 +841,27 @@ section
 {
     overflow-x: scroll;
     overflow-y: hidden;
-    /*border: 1px solid red;*/
 
     height: 100%;
     padding-bottom: 20px;
+
+    /*border: 1px solid red;*/
 }
 
 .movie-horizontal ul,
 .similar-horizontal ul
 {
     position: relative;
+    top: 0;
 
     display: inline-block;
-    flex-direction: row;
 
     width: auto;
     height: 100%;
 
     white-space: nowrap;
-
-    justify-content: flex-start;
-    align-items: center;
     /*margin-left: 1600px;*/
+
     /*border: 1px solid blue;*/
 }
 
@@ -820,65 +870,108 @@ section
     /*margin-left: 1700px;*/
 }
 
-.movie-horizontal-inner,
-.similar-horizontal-inner
-{
-    display: flex;
-    flex-direction: column;
 
-    justify-content: center;
-    align-items: center;
-}
 
 .movie-horizontal li,
 .similar-horizontal li
 {
+    position: relative;
+
     display: inline-block;
 
-    width: 200px;
+    width: 250px;
     height: 150px;
-    margin: 0 2px;
+    margin: 0 5px;
 
     transition: all .2s ease;
     white-space: nowrap;
+
     /*border: 1px solid purple;*/
 }
 
 .movie-horizontal li:hover,
 .similar-horizontal li:hover
 {
-    width: 300px;
-    height: 250px;
-    margin: 0 2px;
+    margin: 0 60px;
 
-    transition: all .2s ease;
-    /*border: 1px solid purple;*/
+    transition: all .2s linear;
+    transform: scale(1.5);
+
+    /*height: 200px;*/
 }
 
-.movie-horizontal li:first-of-type,
-.similar-horizontal li:first-of-type
+
+
+
+.imgContainer
 {
-    margin-left: 90px;
+    display: flex;
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
 }
 
-.movie-horizontal li:last-of-type,
-.similar-horizontal li:last-of-type
+.imgContainer img
 {
-    width: 0;
-    height: 150px;
+    /*width: 100%;*/
+    height: 100%;
 }
 
-.movie-horizontal-inner a strong,
-.similar-horizontal-inner a strong
+
+.movie-text
 {
-    display: block;
+    position: absolute;
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+    transition: opacity .2s linear;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+
+    opacity: 0 !important;
+    background-color: rgba(26, 26, 26, .7);
+
+    justify-content: center;
+    align-items: center;
 }
 
-.appFront
+.movie-text:hover
+{
+    transition: opacity .2s linear;
+
+    opacity: 1!important;
+}
+
+
+
+.appFront,
+.search-wrap
 {
     position: relative;
 
     background: rgba(26, 26, 26, 1);
+}
+
+.search-wrap
+{
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .appFront h3
@@ -886,6 +979,9 @@ section
     position: relative;
     z-index: 900;
     left: 0;
+
+    margin: 25px 0 15px 0;
+    padding-left: 20px;
 
     color: #fff;
     /*border: 1px solid yellow;*/
@@ -901,4 +997,11 @@ section
     height: 200px;
 
     background-color: #fff;
+}
+
+.movie-horizontal-container:last-of-type
+{
+    padding-bottom: 50px;
+
+    background: rgba(26, 26, 26, 1);
 }

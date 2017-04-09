@@ -1,6 +1,8 @@
 function AuthController($state, AuthFactory) {
   var controller = this;
 
+  //current path
+
   controller.createUser = function(){
     controller.error = null;
     AuthFactory.$createUserWithEmailAndPassword(controller.email, controller.password).then(
@@ -67,7 +69,7 @@ function AuthController($state, AuthFactory) {
   init();
 }
 
-AuthController.$inject = ['$state', 'AuthFactory'];
+AuthController.$inject = ['$state','AuthFactory'];
 
 angular
   .module('myApp')

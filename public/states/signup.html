@@ -23,7 +23,7 @@
 
   <br>
 
-  <button ng-click="auth.createUser()" ui-sref="appFront">Create Account</button>
+  <a ng-click="auth.createUser()" class="sign-up-btn x-large">Create Account</a>
 
   <p ng-if="auth.error" class="errorMessage">
     Error: <strong>{{ auth.error.message }}</strong>

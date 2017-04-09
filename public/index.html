@@ -27,20 +27,25 @@
 
 <body ng-controller = "AuthController as auth" >
 
-  <nav class="headerElement fade-in">
+  <nav class="headerElement">
+    <div class="logo-wrap" ui-sref="home">
     <h1>Spartan Apps</h1>
     <!-- <a ng-if="auth.user" ui-sref="app/search">Go To App</a>
     <a href="#" ng-if="auth.user" ui-sref="appFront">appFront</a> -->
+</div>
+    <a href="#" ng-if="auth.user" class="sign-in-btn" ui-sref="search"> Search</a>
+
+  
 
 
-    <div ng-if="auth.user">
-    <p>  <strong>
+
+    <p ng-if="auth.user">  <strong>
         Welcome {{ auth.user.email.substring(0, auth.user.email.lastIndexOf("@")) }}!
       </strong>
     </p>
-    <p><a href="#" ng-click="auth.signOut()">Sign Out</a></p>
+    <a href="#" ng-if="auth.user" class="sign-out-btn" ng-click="auth.signOut()">Sign Out</a>
 
-    </div>
+
 
 
       <a href="#" ui-sref="login" class="sign-in-btn" ng-if="!auth.user">Sign In</a>

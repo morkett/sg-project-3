@@ -1,10 +1,11 @@
-<a href="#" ui-sref="home">Back</a>
+<!-- <a href="#" ui-sref="home">Back</a> -->
 <h2>Find A Movie</h2>
-<div ng-init="movies.getSearchDetails()">
+<div ng-init="movies.getSearchDetails()" class="search-wrap">
+  <section class="signUp">
 <form autocomplete="on">
   <div class="placeholder"
   placeholder="press enter to search">
-  <input ng-model="movies.searchTerm" ng-submit/>
+  <input ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
     <input type="submit" class="search-submit" ng-click="movies.getSearchDetails()">
     </div>
 </form>
@@ -33,4 +34,5 @@
   </ul>
 </div>
 </div>
+</section>
 </div>
