@@ -12,17 +12,14 @@
   <script src="//cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
   <script src="//cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 
-
-
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Rubik:300,400|Work+Sans:200,300,500" rel="stylesheet">
   <!-- JS FILES -->
   <script src="js/app.js"></script>
   <script src="js/factories/auth.factory.js"></script>
-  <!-- <script src="js/factories/user.factory.js"></script> -->
   <script src="js/factories/movie.factory.js"></script>
   <script src="js/controllers/auth.controller.js"></script>
-  <!-- <script src="js/controllers/user.controller.js"></script> -->
   <script src="js/controllers/movie.controller.js"></script>
-
   <script src="js/filters/filters.js"></script>
 
 
@@ -31,11 +28,10 @@
 <body ng-controller = "AuthController as auth" >
 
   <nav class="headerElement fade-in">
-    <h1>Sparta apps</h1>
-    <a ng-if="!auth.user" ui-sref="home">Home</a>
+    <h1>Spartan Apps</h1>
     <a ng-if="auth.user" ui-sref="app/search">Go To App</a>
-    <a href="#" ui-sref="appFront">appFront</a>
-    <section class="userWidget headerElement">
+    <a href="#" ng-if="auth.user" ui-sref="appFront">appFront</a>
+
 
     <div ng-if="auth.user">
     <p>  <strong>
@@ -46,13 +42,10 @@
 
     </div>
 
-    <div ng-if="!auth.user">
-      <p>Welcome new person!!</p>
 
-      <a href="#" ui-sref="login">Click Here</a> to sign in.
-    </div>
+      <a href="#" ui-sref="login" class="sign-in-btn" ng-if="!auth.user">Sign In</a>
 
-  </section>
+
   </nav>
 
 
