@@ -728,7 +728,6 @@ section
 {
     position: absolute;
     z-index: 999;
-    top: 60px;
     left: 0;
 
     overflow: hidden;
@@ -738,6 +737,11 @@ section
     /*height: calc(100% - 60px);*/
 
     background: rgba(26, 26, 26, 1);
+}
+
+.loading-details
+{
+    top: 60px;
 }
 
 .cs-loader-inner
