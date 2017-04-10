@@ -28,6 +28,8 @@ function MovieController($stateParams, MovieFactory ){
 
   };
 
+  
+
 
 
 

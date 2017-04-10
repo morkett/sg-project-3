@@ -1,6 +1,13 @@
 function AuthController($state, AuthFactory) {
   var controller = this;
 
+  controller.navIndex = false;
+
+  controller.navClicked = function ($index) {
+    controller.navIndex = $index;
+    console.log($index);
+
+  };
   //current path
 
   controller.createUser = function(){

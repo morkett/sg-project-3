@@ -41,10 +41,13 @@
     <a href="#" ng-if="auth.user" ui-sref="appFront">appFront</a> -->
 </div>
 
-<div class="navBar-btns">
-  <a href="#" ui-sref="login" class="sign-in-btn mobile-nav" ng-if="!auth.user">Sign In</a>
-    <a href="#" ng-if="auth.user" class="sign-in-btn mobile-nav" ui-sref="search"> Search</a>
-    <a href="#" ng-if="auth.user" class="sign-in-btn mobile-nav" ui-sref="appFront"> Movies</a>
+<div class="navBar-btns" ng-class="{navClicked: auth.navIndex}">
+  <a href="#" ui-sref="login" class="sign-in-btn mobile-nav" ng-if="!auth.user"
+  ng-click="auth.navClicked(false)">Sign In</a>
+    <a href="#" ng-if="auth.user" class="sign-in-btn mobile-nav" ui-sref="search"
+    ng-click="auth.navClicked(false)"> Search</a>
+    <a href="#" ng-if="auth.user" class="sign-in-btn mobile-nav" ui-sref="appFront"
+    ng-click="auth.navClicked(false)"> Movies</a>
 
 
 
@@ -56,7 +59,7 @@
         Welcome <span class="span-green">{{ auth.user.email.substring(0, auth.user.email.lastIndexOf("@")) }}!
       </span>
     </p>
-    <a href="#" ng-if="auth.user" class="sign-out-btn mobile-nav" ng-click="auth.signOut()">Sign Out</a>
+    <a href="#" ng-if="auth.user" class="sign-out-btn mobile-nav" ng-click="auth.signOut(); auth.navClicked(false)">Sign Out</a>
 
 
 
@@ -66,7 +69,7 @@
 </div>
   </nav>
 
-<a href="#"  class="sign-in-btn mobile-nav-btn"> <span></span></a>
+<a href="#"  class="sign-in-btn mobile-nav-btn" ng-click="auth.navClicked(true)"> <span ng-click="auth.navClicked(true)"></span></a>
 
   <section class="indexSection" ng-controller="MovieController as movies" ui-view >
 
