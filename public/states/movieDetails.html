@@ -1,4 +1,4 @@
-<div class="loading" ng-if="!movies.results.singleVideoResultsJson.results">
+<!-- <div class="loading" ng-if="!movies.results.singleVideoResultsJson.results">
   <div class="cs-loader-inner">
     <label>	●</label>
     <label>	●</label>
@@ -8,67 +8,82 @@
     <label>	●</label>
     <p>LOADING...</p>
   </div>
-</div>
+</div> -->
 
-<section ng-init="movies.getOneMovie()" >
-<a href="#" ui-sref="app/search">Back</a>
-
-<h2>{{movies.results.singleMovieResultsJson.title}}</h2>
+<section ng-init="movies.getOneMovie()" class="detailsSection">
+  <h2>{{movies.results.singleMovieResultsJson.title}}</h2>
+<div class="details-container">
+  <div class="details-img-container">
   <img  ng-if="result.backdrop_path !== null"
-  src="http://image.tmdb.org/t/p/w185//{{movies.results.singleMovieResultsJson.poster_path}}"
+  src="http://image.tmdb.org/t/p/w780//{{movies.results.singleMovieResultsJson.poster_path}}"
   alt="{{ result.title}}"
-  class="fade-in"
+  class="fade-in poster-img"
   />
-<ul>
-  <li ng-repeat="result in movies.results.singleMovieResultsJson.genres track by $index" class="fade-in-delay-1">
-    <p class="fade-in-delay-1">{{movies.results.singleMovieResultsJson.genres[$index].name}}</p>
-  </li>
-</ul>
-<p class="fade-in-delay-3">{{movies.results.singleMovieResultsJson.runtime}} mins</p>
+  <ul>
+    <li ng-repeat="result in movies.results.singleMovieResultsJson.genres track by $index" class="fade-in-delay-1 genre-array">
+      <p class="fade-in-delay-1">{{movies.results.singleMovieResultsJson.genres[$index].name}}</p>
+    </li>
+  </ul>
+  <p class="fade-in-delay-3 runtime" ng-if="movies.results.singleMovieResultsJson.runtime === null">Runtime: {{movies.results.singleMovieResultsJson.runtime}} mins</p>
+  </div>
+  <div class="text-container">
 
-<p class="fade-in-delay-3">{{movies.results.singleMovieResultsJson.overview}}</p>
 
-<a class="anchor-block" href="http://www.imdb.com/title/{{movies.results.singleMovieResultsJson.imdb_id}}" target="_blank">View on IMDB</a>
+<p class="fade-in-delay-3 overview">{{movies.results.singleMovieResultsJson.overview}}</p>
 
+<div class="icon-container">
+<a class="anchor-block icon icon-imdb sign-in-btn" href="http://www.imdb.com/title/{{movies.results.singleMovieResultsJson.imdb_id}}" target="_blank">IMDB</a>
+
+<a href="#"
+ng-click="movies.itemClicked(true)"
+ng-if="movies.results.singleVideoResultsJson.results[0].key"
+class="icon icon-youtube sign-in-btn">Watch Trailer</a>
+</div>
 <div class="trailer-bg hide" ng-class="{full: movies.selectedIndex}" ng-click="movies.itemClicked() === false">
 <iframe width="560" height="315"  frameborder="0" allowfullscreen
 src="{{movies.results.singleVideoResultsJson.results[0].key | youtubeEmbedUrl }}"
   ng-if="movies.selectedIndex" >
 </iframe>
 </div>
-  <a href="#"
-  ng-click="movies.itemClicked(true)"
-  ng-if="movies.results.singleVideoResultsJson.results[0].key">Watch Trailer</a>
+
+</div>
+</div>
+
+  <h3>Similar</h3>
+  <!-- <div class="movie-horizontal-container">
+      <div class="movie-horizontal">
+          <ul>
+            <div class="loading" ng-if="!movies.results.singleMovieResultsJson.results">
+                <div class="cs-loader-inner">
+                    <label>	●</label>
+                    <label>	●</label>
+                    <label>	●</label>
+                    <label>	●</label>
+                    <label>	●</label>
+                    <label>	●</label>
+                    <p>LOADING...</p>
+                </div>
+            </div>
+
+              <li ng-repeat="result in movies.results.singleMovieResultsJson.results" >
 
 
+                      <p ui-sref="movieDetails({movieId:result.id})" class=" movie-text">
+                        {{ result.title }}
+
+                      </p>
+                      <a href="#" ui-sref="movieDetails({movieId:result.id})"
+                      class="imgContainer">
+                          <img ng-if="result.backdrop_path !== null" src="http://image.tmdb.org/t/p/w780//{{result.backdrop_path}}" class="fade-in" alt="{{ result.title}}" />
+                      </a>
+                      <input type="hidden" value="{{result.id}}" />
+
+              </li>
+              <li class="phantom"></li>
+          </ul>
+      </div>
+  </div> -->
 
 
-  <a href="#" ng-if="auth.user" class="sign-in-btn" ui-sref="appFront"> Movies</a>
-  <h3 class="similarH3">Similar</h3>
-  <!-- <p>id:{{movies.results.similarMoviesResultsJson.results[$index].id}}</p> -->
-  <div class="similar-horizontal-container" ng-if="movies.results.similarMoviesResultsJson.results">
-      <div class="similar-horizontal">
-            <ul>
-
-                <li ng-repeat="result in movies.results.similarMoviesResultsJson.results track by $index | limitTo: 19"
-                ng-if="movies.results.similarMoviesResultsJson.results[$index].backdrop_path !== null" >
-                    <div class="movie-horizontal-inner">
-                        <!-- ng-if no img then hide-->
-                        <img ng-if="movies.results.similarMoviesResultsJson.results[$index].backdrop_path === null" src="images/no-image.png" width="185" class="fade-in" />
-                        <a href="#" ui-sref="movieDetails({movieId:{{movies.results.similarMoviesResultsJson.results[$index].id}}})">
-                            <img ng-if="movies.results.similarMoviesResultsJson.results[$index].backdrop_path !== null" src="http://image.tmdb.org/t/p/w185//{{movies.results.similarMoviesResultsJson.results[$index].backdrop_path}}" class="fade-in" alt="{{ result.title}}" />
-                        </a>
-                        <input type="hidden" value="{{result.id}}" />
-                        <a href="#" ui-sref="movieDetails({movieId:{{movies.results.similarMoviesResultsJson.results[$index].id}}})" class="fade-in">
-                            <!-- slice to reduce date -->
-                            <strong>{{ movies.results.similarMoviesResultsJson.results[$index].title }}</strong> ({{ movies.results.similarMoviesResultsJson.results[$index].release_date.slice(0, -6); }})<br>
-
-                        </a>
-                    </div>
-                </li>
-                <li class="phantom"></li>
-            </ul>
-    </div>
-  </div>
 
 </section>

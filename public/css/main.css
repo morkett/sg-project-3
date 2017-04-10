@@ -1111,3 +1111,88 @@ section
     justify-content: space-around;
     align-items: center;
 }
+
+.detailsSection
+{
+    min-height: 100vh;
+    padding-top: 60px;
+
+    text-align: center;
+
+    background: rgba(26, 26, 26, 1);
+}
+
+.detailsSection h2
+{
+    font-size: 1.8em;
+
+    margin-bottom: 25px;
+}
+
+.details-container
+{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.detailsSection .poster-img
+{
+    width: 350px;
+}
+
+.genre-array,
+.runtime
+{
+    font-size: .8em;
+    font-weight: 300;
+
+    display: inline-block;
+
+    margin: 5px 10px;
+}
+
+.genre-array
+{
+    margin-top: 10px;
+}
+
+.text-container
+{
+    height: 100%;
+}
+.overview
+{
+    font-weight: 300;
+    line-height: 1.5em;
+
+    overflow: hidden;
+
+    width: 400px;
+    height: 100%;
+    margin: auto;
+    margin-left: 25px;
+}
+
+.icon,
+.icon:hover
+{
+    display: flex;
+
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    padding: 10px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container
+{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
