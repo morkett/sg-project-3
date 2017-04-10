@@ -648,7 +648,7 @@ iframe
 {
     position: relative;
 
-    width: 70vw;
+    width: 80vw;
     height: 70vh;
 }
 
@@ -1297,4 +1297,100 @@ section
     transform: translateY(-50px);
 
     background: transparent;
+}
+
+@media only screen and (max-width: 873px)
+{
+    .details-container
+    {
+        flex-direction: column;
+    }
+
+    .detailsSection
+    {
+        height: auto;
+    }
+
+    .text-container
+    {
+        margin-left: 0;
+    }
+
+    .text-container h2
+    {
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (max-width: 535px)
+{
+    .overview
+    {
+        font-size: 1em;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        margin-left: 0;
+        padding: 0 90px;
+
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 320px)
+{
+    .overview
+    {
+        padding: 50px 100px;
+    }
+
+    .detail-img-container img
+    {
+        width: 80%;
+    }
+
+    .navBar-btns
+    {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+
+        display: none;
+
+        width: 100%;
+    }
+
+    .welcome-message
+    {
+        display: none;
+    }
+
+    .indexSection
+    {
+        padding-bottom: 60px;
+
+        background: rgba(26, 26, 26, 1);
+    }
+
+    .homePage-container
+    {
+        padding-left: 0;
+
+        text-align: center;
+    }
+
+    .sign-up-btn
+    {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .logo-wrap
+    {
+        width: 100%;
+
+        border-bottom: 2px solid #007849;
+    }
 }
