@@ -967,6 +967,8 @@ section
 
 .similarMovieWrapper .movie-horizontal-container:last-of-type
 {
+    padding-bottom: 0;
+
     background: transparent;
 }
 
@@ -1200,6 +1202,11 @@ section
 
     justify-content: center;
     align-items: center;
+}
+
+.details-container .movie-horizontal-container:last-of-type
+{
+    padding-bottom: 0;
 }
 
 .detailsSection .poster-img
