@@ -1,4 +1,4 @@
-/*RESETS*/ /* black rgba(26, 26, 26, 1) */
+/*RESETS*/ /* black rgba(26, 26, 26, 1) green: #007849*/
 
 html,
 body,
@@ -212,6 +212,13 @@ nav
 
     justify-content: center;
     align-items: center;
+}
+
+.span-green
+{
+    font-weight: bolder;
+
+    color: #007849;
 }
 
 .sign-in-btn,

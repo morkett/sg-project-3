@@ -29,7 +29,7 @@
 
   <nav class="headerElement">
     <div class="logo-wrap" ui-sref="home">
-    <h1>Your <span>Movies</span></h1>
+    <h1>Your <span class="span-green">Movies</span></h1>
     <!-- <a ng-if="auth.user" ui-sref="app/search">Go To App</a>
     <a href="#" ng-if="auth.user" ui-sref="appFront">appFront</a> -->
 </div>
@@ -43,9 +43,9 @@
 
 
 
-    <p ng-if="auth.user">  <strong>
-        Welcome {{ auth.user.email.substring(0, auth.user.email.lastIndexOf("@")) }}!
-      </strong>
+    <p ng-if="auth.user">
+        Welcome <span class="span-green">{{ auth.user.email.substring(0, auth.user.email.lastIndexOf("@")) }}!
+      </span>
     </p>
     <a href="#" ng-if="auth.user" class="sign-out-btn" ng-click="auth.signOut()">Sign Out</a>
 
