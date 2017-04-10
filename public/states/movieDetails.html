@@ -39,7 +39,8 @@ ng-click="movies.itemClicked(true)"
 ng-if="movies.results.singleVideoResultsJson.results[0].key"
 class="icon icon-youtube sign-in-btn btn-large">Watch Trailer</a>
 
-<a class="anchor-block icon icon-imdb sign-in-btn btn-large" href="http://www.imdb.com/title/{{movies.results.singleMovieResultsJson.imdb_id}}" target="_blank">Find Similar Movies</a>
+<a class="anchor-block icon icon-imdb sign-in-btn btn-large"
+ng-click="movies.similarClicked(true)">Find Similar Movies</a>
 </div>
 <div class="trailer-bg hide" ng-class="{full: movies.selectedIndex}" ng-click="movies.itemClicked() === false">
 <iframe width="560" height="315"  frameborder="0" allowfullscreen
@@ -51,7 +52,8 @@ src="{{movies.results.singleVideoResultsJson.results[0].key | youtubeEmbedUrl }}
 </div>
 </div>
 
-  <h3>Similar</h3>
+<div class="similarMovieWrapper" ng-class="{similarMovieClicked: movies.similarIndex}">
+  <h3>Similar <span class="span-green">Movies</span></h3>
   <div class="movie-horizontal-container">
       <div class="movie-horizontal">
           <ul>
@@ -73,6 +75,7 @@ src="{{movies.results.singleVideoResultsJson.results[0].key | youtubeEmbedUrl }}
               <li class="phantom"></li>
           </ul>
       </div>
+  </div>
   </div>
 
 

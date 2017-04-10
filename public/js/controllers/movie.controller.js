@@ -6,8 +6,17 @@ function MovieController($stateParams, MovieFactory ){
 
   controller.selectedIndex = false;
 
+
   controller.itemClicked = function ($index) {
     controller.selectedIndex = $index;
+
+  };
+
+  controller.similarIndex = false;
+
+  controller.similarClicked = function ($index) {
+    controller.similarIndex = $index;
+    console.log($index);
 
   };
 

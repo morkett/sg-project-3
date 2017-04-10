@@ -934,8 +934,6 @@ section
 
     transition: all .2s ease;
     white-space: nowrap;
-
-    /*border: 1px solid purple;*/
 }
 
 .movie-horizontal li:hover,
@@ -949,7 +947,40 @@ section
     /*height: 200px;*/
 }
 
+.similarMovieWrapper
+{
+    position: fixed;
+    top: 60px;
 
+    display: flex;
+    flex-direction: column;
+
+    width: 100vw;
+    height: 100vh;
+
+    transform: translateX(-100vw);
+    /*opacity: 0;*/
+
+    justify-content: center;
+    align-items: center;
+}
+
+.similarMovieWrapper .movie-horizontal-container:last-of-type
+{
+    background: transparent;
+}
+
+
+
+.similarMovieClicked
+{
+    transform: translateX(0vw);
+    animation: fade-in .2s linear 0s forwards;
+
+    opacity: 1;
+    background: #000;
+    background: rgba(0, 0, 0, .95);
+}
 
 
 .imgContainer
@@ -1223,4 +1254,13 @@ section
 
     justify-content: center;
     align-items: center;
+}
+
+.similarMovieWrapper h3
+{
+    font-size: 2em;
+
+    transform: translateY(-50px);
+
+    background: transparent;
 }
