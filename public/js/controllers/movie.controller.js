@@ -3,15 +3,20 @@ function MovieController($stateParams, MovieFactory ){
 
 
 
-
+  //////////////////////////////////////////////////
+  //  Logic for click event
+  //////////////////////////////////////////////////
   controller.selectedIndex = false;
-
 
   controller.itemClicked = function ($index) {
     controller.selectedIndex = $index;
 
   };
 
+
+  //////////////////////////////////////////////////
+  //  Logic for similar movies click event
+  //////////////////////////////////////////////////
   controller.similarIndex = false;
 
   controller.similarClicked = function ($index) {
@@ -20,6 +25,9 @@ function MovieController($stateParams, MovieFactory ){
 
   };
 
+  //////////////////////////////////////////////////
+  //  Logic for search movies click event
+  //////////////////////////////////////////////////
   controller.searchIndex = false;
 
   controller.searchClicked = function ($index) {
@@ -27,11 +35,6 @@ function MovieController($stateParams, MovieFactory ){
     console.log($index);
 
   };
-
-  
-
-
-
 
 
             ///////////////////////////
@@ -59,6 +62,8 @@ function MovieController($stateParams, MovieFactory ){
     console.log('controller.limit:',controller.limit);
   };
   //^^^^^^^^ Show More/Less Of Results ^^^^^^^^^//
+
+
   ///////////////////////////
 //////////// get in getMainList ////////////
   ///////////////////////////
@@ -75,6 +80,8 @@ function MovieController($stateParams, MovieFactory ){
 );
   };
 //^^^^^^^^ get in getMainList ^^^^^^^^^//
+
+
 
             ///////////////////////////
 //////////// getSearch of all movies ////////////
@@ -94,6 +101,10 @@ function MovieController($stateParams, MovieFactory ){
   };
 //^^^^^^^^ getSearch of all movies ^^^^^^^^^//
 
+
+            ///////////////////////////
+////////////     getOne movie        ////////////
+              ///////////////////////////
   controller.getOneMovie = function(){
     var movieId = $stateParams.movieId;
     controller.results = [];
@@ -109,7 +120,6 @@ function MovieController($stateParams, MovieFactory ){
   };
 
   function init() {
-    // controller.selectedMovie = undefined;
   }
 
   init();

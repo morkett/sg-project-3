@@ -1,6 +1,7 @@
 function AuthController($state, AuthFactory) {
   var controller = this;
 
+  //NAV BUTTON MOBILE LOGIC
   controller.navIndex = false;
 
   controller.navClicked = function ($index) {
@@ -8,12 +9,14 @@ function AuthController($state, AuthFactory) {
     console.log($index);
 
   };
-  //current path
+
+//////////////////////////////////////////////////
+//  CREATE USER
+//////////////////////////////////////////////////
 
   controller.createUser = function(){
     controller.error = null;
     AuthFactory.$createUserWithEmailAndPassword(controller.email, controller.password).then(
-      // (firebaseUser) => is shorthand for function(firebaseUser) - only works for anon functions
       (firebaseUser) => {
         console.log('firebaseUser', firebaseUser);
         resetCredentials();
@@ -26,6 +29,10 @@ function AuthController($state, AuthFactory) {
       }
     );
   };
+
+  //////////////////////////////////////////////////
+  //  SIGN IN-USER
+  //////////////////////////////////////////////////
 
   controller.signIn = () => {
     controller.error = null;
@@ -43,12 +50,17 @@ function AuthController($state, AuthFactory) {
 
    );
   };
-
+  //////////////////////////////////////////////////
+  //  Sign Out
+  //////////////////////////////////////////////////
   controller.signOut = () => {
     AuthFactory.$signOut();
     $state.go('home');
   };
 
+  //////////////////////////////////////////////////
+  //  CRSIGN OUT / NEW USER
+  //////////////////////////////////////////////////
   controller.signOutNewUser = () => {
     AuthFactory.$signOut();
     $state.go('signup');
@@ -57,7 +69,9 @@ function AuthController($state, AuthFactory) {
 
 
 
-
+  //////////////////////////////////////////////////
+  //  RESET CREDENTIALS
+  //////////////////////////////////////////////////
   function resetCredentials() {
     controller.email= null;
     controller.password = null;
