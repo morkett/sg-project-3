@@ -1,10 +1,10 @@
-<h2>Sign In</h2>
+<h2 class="h2-title">Sign <span class="span-green">In</span></h2>
 
 <section class="signUp-container">
 
 
     <section class="signUp" ng-if="!auth.user">
-        <h2>Sign In</h2>
+
 
         <div class="signUpEmailWrap">
             <input type="text" name="signUpEmail" id="signUpEmail" ng-model="auth.email" ng-class="{inputError: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}">
