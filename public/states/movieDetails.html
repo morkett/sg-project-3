@@ -52,7 +52,9 @@ src="{{movies.results.singleVideoResultsJson.results[0].key | youtubeEmbedUrl }}
 </div>
 </div>
 
-<div class="similarMovieWrapper" ng-class="{similarMovieClicked: movies.similarIndex}">
+<div class="similarMovieWrapper"
+ng-class="{similarMovieClicked: movies.similarIndex}"
+ng-click="movies.similarClicked(false)">
   <h3>Similar <span class="span-green">Movies</span></h3>
   <div class="movie-horizontal-container">
       <div class="movie-horizontal">

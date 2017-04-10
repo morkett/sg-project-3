@@ -1157,12 +1157,19 @@ section
 
 .detailsSection
 {
-    min-height: 100vh;
-    padding-top: 100px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+
+    height: 100vh;
+    height: calc(100vh - 35px);
 
     text-align: center;
 
     background: rgba(26, 26, 26, 1);
+
+    justify-content: center;
+    align-items: center;
 }
 
 .detailsSection h2,
