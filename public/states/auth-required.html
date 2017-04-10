@@ -1,3 +1,40 @@
-<h2><a ui-sref="signup">Sign Up</a></h2>
-<p>or</p>
-<h2><a ui-sref="login">Log In</a></h2>
+<section class="signUp-container">
+
+
+<section class="signUp" ng-if="!auth.user">
+<h2>Sign Up</h2>
+
+  <div class="signUpEmailWrap">
+    <input type="text" name="signUpEmail" id="signUpEmail" ng-model="auth.email"  ng-class="{inputError: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}">
+    <label id="signUpLabelEmail" for="signUpEmail"
+  ng-class="{inputErrorLabel: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use', searchFormLabelDirty: auth.email.length > 0}"
+    >Email</label>
+
+  </div>
+
+  <div>
+    <input id="signUpPassword" name="signUpPassword" type="password" ng-model="auth.password"
+  ng-class="{inputError: auth.error.code === 'auth/weak-password'}">
+    <label for="signUpPassword"
+    id="signUpPasswordLabel"
+    ng-class="{inputErrorLabel: auth.error.code === 'auth/weak-password', searchFormLabelDirty: auth.password.length > 0}"
+    >Password</label>
+  </div>
+
+  <br>
+
+  <a ng-click="auth.createUser()" class="sign-up-btn x-large">Create Account</a>
+  <a ui-sref="login" class="sign-up-btn x-large">Or sign in</a>
+
+  <p ng-if="auth.error" class="errorMessage">
+    Error: <strong>{{ auth.error.message }}</strong>
+  </p>
+
+</section>
+
+<section ng-if="auth.user" class="alreadyLoggedWrap">
+  <p class="alreadyLogged">You are already logged in, no need to sign up again.</p>
+  <a ui-sref="appFront" class="sign-up-btn">Go To App</a>
+  <a class="sign-up-btn btn-large" ng-click="auth.signOutNewUser()">Sign out and create new user. </a>
+</section>
+</section>

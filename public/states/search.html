@@ -1,38 +1,38 @@
 <!-- <a href="#" ui-sref="home">Back</a> -->
 <h2>Find A Movie</h2>
 <div ng-init="movies.getSearchDetails()" class="search-wrap">
-  <section class="signUp">
-<form autocomplete="on">
-  <div class="placeholder"
-  placeholder="press enter to search">
-  <input ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
+  <section class="signUp search-inner-wrap">
+<form autocomplete="off" class="searchForm">
+
+  <input id="searchForm" name="searchForm" ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
+  <label for="searchForm" id="searchFormLabel" ng-class="{searchFormLabelDirty: movies.searchTerm.length > 0}">Type in the name of a movie and press enter</label>
     <input type="submit" class="search-submit" ng-click="movies.getSearchDetails()">
-    </div>
+
 </form>
+<!-- <p ng-if="movies.results === undefined">I didnt get that</p> -->
 
-<div class="similar-horizontal-container">
-    <div class="similar-horizontal">
-  <ul>
-    <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
+<div class="movie-horizontal-container fade-in">
+    <div class="movie-horizontal fade-in">
+        <ul class="search-bg fade-in" ng-if="result.backdrop_path !== null">
 
-      <!-- ng-if no img then hide-->
-      <img ng-if="result.backdrop_path === null" src="images/no-image.png"  width="185" class="fade-in"/>
-      <a href="#" ui-sref="movieDetails({movieId:result.id})">
-        <img  ng-if="result.backdrop_path !== null"
-      src="http://image.tmdb.org/t/p/w185//{{result.backdrop_path}}"
-      class="fade-in"
-      alt="{{ result.title}}"/>
-        </a>
-      <input type="hidden" value="{{result.id}}"/>
-      <a href="#" ui-sref="movieDetails({movieId:result.id})" class="fade-in">
-        <!-- slice to reduce date -->
-      <strong>{{ result.title }}</strong> ({{ result.release_date.slice(0, -6); }})<br>
-    </a>
-    </li>
-    <li class="phantom"></li>
 
-  </ul>
-</div>
+            <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
+
+                    <p ui-sref="movieDetails({movieId:result.id})" class=" movie-text">
+                        <!-- slice to reduce date -->
+                      {{ result.title }} <br> {{ result.release_date }}
+
+                    </p>
+                    <a href="#" ui-sref="movieDetails({movieId:result.id})"
+                    class="imgContainer">
+                        <img ng-if="result.backdrop_path !== null" src="http://image.tmdb.org/t/p/w780//{{result.backdrop_path}}" class="fade-in" alt="{{ result.title}}" />
+                    </a>
+                    <input type="hidden" value="{{result.id}}" />
+
+            </li>
+            <!-- <li class="phantom"></li> -->
+        </ul>
+    </div>
 </div>
 </section>
 </div>

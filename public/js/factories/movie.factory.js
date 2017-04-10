@@ -3,7 +3,7 @@
 function MovieFactory($http) {
   return {
     getAll: (searchTerm) => {
-      var searchString = searchTerm.split(' ').join('+');
+      var searchString = searchTerm.replace(' ', '+');
       return $http({
         method: 'GET',
         url: `/api/movies/search/${searchString}`

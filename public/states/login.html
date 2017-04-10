@@ -1,22 +1,5 @@
 <h2>Sign In</h2>
 
-
-<!-- <section class="login" ng-if="!auth.user">
-  <div>
-    Email: <input type="text" ng-model="auth.email">
-  </div>
-
-  <div>
-    Password: <input type="password" ng-model="auth.password">
-  </div>
-
-  <button ng-click="auth.signIn()">Sign In</button>
-
-  <p ng-if="auth.error">
-    Error: <strong>{{ auth.error }}</strong>
-  </p>
-</section> -->
-
 <section class="signUp-container">
 
 
@@ -26,7 +9,7 @@
   <div class="signUpEmailWrap">
     <input type="text" name="signUpEmail" id="signUpEmail" ng-model="auth.email"  ng-class="{inputError: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}">
     <label id="signUpLabelEmail" for="signUpEmail"
-  ng-class="{inputErrorLabel: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use'}"
+  ng-class="{inputErrorLabel: auth.error.code === 'auth/invalid-email' || auth.error.code === 'auth/email-already-in-use', searchFormLabelDirty: auth.email.length > 0}"
     >Email</label>
 
   </div>
@@ -36,13 +19,13 @@
   ng-class="{inputError: auth.error.code === 'auth/weak-password'}">
     <label for="signUpPassword"
     id="signUpPasswordLabel"
-    ng-class="{inputErrorLabel: auth.error.code === 'auth/weak-password' || ng-dirty}"
+    ng-class="{inputErrorLabel: auth.error.code === 'auth/weak-password', searchFormLabelDirty: auth.password.length > 0}"
     >Password</label>
   </div>
 
   <br>
 
-  <a ng-click="auth.signIn()" class="sign-up-btn x-large">Create Account</a>
+  <a ng-click="auth.signIn()" class="sign-up-btn x-large">Sign In</a>
 
   <p ng-if="auth.error" class="errorMessage">
     Error: <strong>{{ auth.error.message }}</strong>

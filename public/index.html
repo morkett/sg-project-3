@@ -29,13 +29,17 @@
 
   <nav class="headerElement">
     <div class="logo-wrap" ui-sref="home">
-    <h1>Spartan Apps</h1>
+    <h1>Your Movies</h1>
     <!-- <a ng-if="auth.user" ui-sref="app/search">Go To App</a>
     <a href="#" ng-if="auth.user" ui-sref="appFront">appFront</a> -->
 </div>
-    <a href="#" ng-if="auth.user" class="sign-in-btn" ui-sref="search"> Search</a>
 
-  
+<div class="navBar-btns">
+  <a href="#" ui-sref="login" class="sign-in-btn" ng-if="!auth.user">Sign In</a>
+    <a href="#" ng-if="auth.user" class="sign-in-btn" ui-sref="search"> Search</a>
+    <a href="#" ng-if="auth.user" class="sign-in-btn" ui-sref="appFront"> Movies</a>
+
+
 
 
 
@@ -48,9 +52,9 @@
 
 
 
-      <a href="#" ui-sref="login" class="sign-in-btn" ng-if="!auth.user">Sign In</a>
 
 
+</div>
   </nav>
 
 

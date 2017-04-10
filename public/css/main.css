@@ -251,6 +251,7 @@ nav
     align-self: center;
 }
 
+
 .sign-out-btn
 {
     font-size: 1em;
@@ -394,6 +395,8 @@ nav
 {
     font-size: 2em;
 
+    visibility: hidden;
+
     text-align: center;
 
     text-shadow: 1px 1px 10px #000;
@@ -443,7 +446,8 @@ input:focus::-webkit-input-placeholder
     position: relative;
 }
 
-.signUpEmailWrap label
+.signUpEmailWrap label,
+#searchFormLabel
 {
     position: absolute;
     top: 50px;
@@ -474,6 +478,30 @@ input:focus::-webkit-input-placeholder
     transform: translateY(-18px);
 }
 
+.searchForm
+{
+    display: flex;
+
+    margin-bottom: 50px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+#searchFormLabel
+{
+    width: 80vw;
+    margin-left: 10vw;
+}
+
+.searchFormLabelDirty
+{
+    font-size: .8em;
+
+    transition: all .2s linear;
+    transform: translateY(-18px);
+}
 
 
 .signUpEmailWrap input:focus
@@ -560,7 +588,12 @@ input:-webkit-autofill:active
 
 .search-submit
 {
+    position: absolute;
+
     visibility: hidden;
+
+    width: 0;
+    height: 0;
 }
 
 
@@ -785,6 +818,10 @@ section
     }
 }
 
+.cs-loader-inner label
+{
+    margin-bottom: 10px;
+}
 .cs-loader-inner label:nth-child(6)
 {
     -webkit-animation: lol 3s infinite ease-in-out;
@@ -953,14 +990,21 @@ section
     opacity: 1!important;
 }
 
+.appFront
+{
+    padding-top: 50px;
 
+    background: rgba(26, 26, 26, 1);
+}
 
 .appFront,
 .search-wrap
 {
     position: relative;
 
-    background: rgba(26, 26, 26, 1);
+    overflow: hidden;
+
+    /*background: rgba(26, 26, 26, .7);*/
 }
 
 .search-wrap
@@ -968,12 +1012,53 @@ section
     display: flex;
     flex-direction: column;
 
+    width: 100vw;
     height: 100vh;
 
     justify-content: center;
     align-items: center;
 }
 
+.search-wrap .movie-horizontal-container:last-of-type
+{
+    padding: 0;
+
+    background-color: transparent;
+}
+.search-wrap .movie-horizontal-container
+{
+    height: 400px;
+    padding: 0;
+    /*border: 1px solid red;*/
+
+    background-color: transparent;
+}
+
+.search-wrap .movie-horizontal li
+{
+    overflow: visible;
+
+    width: auto;
+    height: auto;
+}
+
+.search-wrap .movie-horizontal li:hover
+{
+    margin: 0 5px;
+
+    transition: all .2s linear;
+    transform: scale(1);
+}
+
+.search-bg
+{
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.search-inner-wrap
+{
+    width: 100%;
+}
 .appFront h3
 {
     position: relative;
@@ -1004,4 +1089,25 @@ section
     padding-bottom: 50px;
 
     background: rgba(26, 26, 26, 1);
+}
+
+.search-bar
+{
+    width: 80vw!important;
+}
+
+.navBar-btns
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    display: flex;
+
+    width: 600px;
+    height: 60px;
+    /*background-color: red;*/
+
+    justify-content: space-around;
+    align-items: center;
 }
