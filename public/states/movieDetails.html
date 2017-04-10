@@ -39,7 +39,7 @@ class="icon icon-youtube sign-in-btn btn-large">Watch Trailer</a>
 
 <a class="anchor-block icon icon-imdb sign-in-btn btn-large"
 ng-click="movies.similarClicked(true)"
-ng-if="movies.results.similarMoviesResultsJson.results.length < 0">Find Similar Movies</a>
+ng-if="movies.results.similarMoviesResultsJson.results.length > 0">Find Similar Movies</a>
 
 <a class="anchor-block icon icon-imdb sign-in-btn btn-large" href="http://www.imdb.com/title/{{movies.results.singleMovieResultsJson.imdb_id}}" target="_blank">IMDB</a>
 </div>
