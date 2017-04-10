@@ -947,7 +947,8 @@ section
     /*height: 200px;*/
 }
 
-.similarMovieWrapper
+.similarMovieWrapper,
+.searchResultsWrapper
 {
     position: fixed;
     top: 60px;
@@ -974,6 +975,8 @@ section
 
 
 
+
+.searchMovieClicked,
 .similarMovieClicked
 {
     transform: translateX(0vw);
@@ -984,6 +987,21 @@ section
     background: rgba(0, 0, 0, .95);
 }
 
+
+.searchBarMove
+{
+    z-index: 999;
+
+    transition: transform .2s linear;
+    transform: translateY(-50px);
+}
+
+.searchBarLabelMove
+{
+    z-index: 999;
+
+    transform: translateY(-70px);
+}
 
 .imgContainer
 {
@@ -1139,6 +1157,8 @@ section
 .search-bar
 {
     width: 80vw!important;
+
+    transition: transform .2s linear;
 }
 
 .navBar-btns

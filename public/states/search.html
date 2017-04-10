@@ -4,13 +4,15 @@
   <section class="signUp search-inner-wrap">
 <form autocomplete="off" class="searchForm">
 
-  <input id="searchForm" name="searchForm" ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
-  <label for="searchForm" id="searchFormLabel" ng-class="{searchFormLabelDirty: movies.searchTerm.length > 0}">Type in the name of a movie and press enter</label>
-    <input type="submit" class="search-submit" ng-click="movies.getSearchDetails()">
+  <input id="searchForm" name="searchForm"
+  ng-class="{searchBarMove: movies.searchIndex}" ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
+  <label for="searchForm" id="searchFormLabel" ng-class="{searchFormLabelDirty: movies.searchTerm.length > 0, searchBarLabelMove: movies.searchIndex}">Type in the name of a movie and press enter</label>
+    <input type="submit" class="search-submit" ng-click="movies.getSearchDetails(); movies.searchClicked(true)">
 
 </form>
 <!-- <p ng-if="movies.results === undefined">I didnt get that</p> -->
-
+<div class="searchResultsWrapper" ng-class="{searchMovieClicked: movies.searchIndex}"
+ng-click="movies.getSearchDetails(); movies.searchClicked(false)">
 <div class="movie-horizontal-container fade-in">
     <div class="movie-horizontal fade-in">
         <ul class="search-bg fade-in" ng-if="result.backdrop_path !== null">
@@ -33,6 +35,7 @@
             <!-- <li class="phantom"></li> -->
         </ul>
     </div>
+</div>
 </div>
 </section>
 </div>

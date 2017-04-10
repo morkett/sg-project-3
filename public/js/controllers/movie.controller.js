@@ -20,6 +20,14 @@ function MovieController($stateParams, MovieFactory ){
 
   };
 
+  controller.searchIndex = false;
+
+  controller.searchClicked = function ($index) {
+    controller.searchIndex = $index;
+    console.log($index);
+
+  };
+
 
 
 
