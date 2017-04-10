@@ -1452,6 +1452,39 @@ section
         justify-content: center;
         align-items: center;
     }
+
+    .navClicked
+    {
+        position: fixed;
+        top: 60px;
+
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        padding: 10% 0;
+        padding-bottom: 30%;
+
+        opacity: 1;
+        background-color: #007849;
+
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .navClicked .mobile-nav
+    {
+        z-index: 999;
+        bottom: auto;
+        left: 0;
+
+        display: block;
+
+        /*margin-top: 20px;*/
+    }
 }
 
 @media  screen and (max-width: 535px)
@@ -1587,6 +1620,39 @@ section
     {
         top: 24px;
     }
+
+    .navClicked
+    {
+        position: fixed;
+        top: 60px;
+
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        padding: 10% 0;
+        padding-bottom: 30%;
+
+        opacity: 1;
+        background-color: #007849;
+
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .navClicked .mobile-nav
+    {
+        z-index: 999;
+        bottom: auto;
+        left: 0;
+
+        display: block;
+
+        /*margin-top: 20px;*/
+    }
 }
 
 
@@ -1719,6 +1785,39 @@ section
     {
         top: 24px;
     }
+
+    .navClicked
+    {
+        position: fixed;
+        top: 60px;
+
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        padding: 10% 0;
+        padding-bottom: 30%;
+
+        opacity: 1;
+        background-color: #007849;
+
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .navClicked .mobile-nav
+    {
+        z-index: 999;
+        bottom: auto;
+        left: 0;
+
+        display: block;
+
+        /*margin-top: 20px;*/
+    }
 }
 
 
@@ -1850,6 +1949,39 @@ section
     .mobile-nav-btn span:hover:after
     {
         top: 24px;
+    }
+
+    .navClicked
+    {
+        position: fixed;
+        top: 60px;
+
+        display: flex;
+        flex-direction: column;
+
+        box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        padding: 10% 0;
+        padding-bottom: 30%;
+
+        opacity: 1;
+        background-color: #007849;
+
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .navClicked .mobile-nav
+    {
+        z-index: 999;
+        bottom: auto;
+        left: 0;
+
+        display: block;
+
+        /*margin-top: 20px;*/
     }
 }
 
