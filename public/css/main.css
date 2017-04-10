@@ -728,13 +728,14 @@ section
 {
     position: absolute;
     z-index: 999;
-    top: 0;
+    top: 60px;
     left: 0;
 
     overflow: hidden;
 
     width: 100vw;
     height: 100%;
+    /*height: calc(100% - 60px);*/
 
     background: rgba(26, 26, 26, 1);
 }
