@@ -16,14 +16,14 @@ mongoose.connect(MONGODB_URI, function (err) {
 });
 
 app.use(function (req, res, next) {
-  // simple middleware logging
+
   console.log(req.method, req.path);
   next();
 });
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 app.listen(PORT, function() {

@@ -1,5 +1,3 @@
-//factory makes the reguest to server side
-
 function MovieFactory($http) {
   return {
     getAll: (searchTerm) => {

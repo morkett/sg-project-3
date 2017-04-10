@@ -20,7 +20,6 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
     .state('search', {
       url: '/search',
       templateUrl: '/states/search.html',
-      //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [
           'AuthFactory', (AuthFactory) => {
@@ -32,7 +31,6 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
     .state('movieDetails', {
       url: '/movie/:movieId',
       templateUrl: '/states/movieDetails.html',
-      //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [
           'AuthFactory', (AuthFactory) => {
@@ -44,7 +42,6 @@ function MainRouter ($stateProvider, $urlRouterProvider, $locationProvider, Auth
     .state('appFront', {
       url: '/getMainList',
       templateUrl: '/states/appFront.html',
-      //resolve - before you go to this state you must resolve whatever is in here
       resolve: {
         currentAuth: [
           'AuthFactory', (AuthFactory) => {
@@ -68,7 +65,6 @@ function AuthCatcher($rootScope, $state) {
   });
 }
 
-// AuthCatcher.$inject = ['$rootScope', '$state'];
 
 angular
   .module('myApp', ['ui.router','firebase'])

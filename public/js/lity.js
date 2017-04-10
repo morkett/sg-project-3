@@ -1,613 +1,613 @@
 (function(window, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], function($) {
-            return factory(window, $);
-        });
-    } else if (typeof module === 'object' && typeof module.exports === 'object') {
-        module.exports = factory(window, require('jquery'));
-    } else {
-        window.lity = factory(window, window.jQuery || window.Zepto);
-    }
-}(typeof window !== "undefined" ? window : this, function(window, $) {
-    'use strict';
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], function($) {
+      return factory(window, $);
+    });
+  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = factory(window, require('jquery'));
+  } else {
+    window.lity = factory(window, window.jQuery || window.Zepto);
+  }
+}(typeof window !== 'undefined' ? window : this, function(window, $) {
+  'use strict';
 
-    var document = window.document;
+  var document = window.document;
 
-    var _win = $(window);
-    var _deferred = $.Deferred;
-    var _html = $('html');
-    var _instances = [];
+  var _win = $(window);
+  var _deferred = $.Deferred;
+  var _html = $('html');
+  var _instances = [];
 
-    var _attrAriaHidden = 'aria-hidden';
-    var _dataAriaHidden = 'lity-' + _attrAriaHidden;
+  var _attrAriaHidden = 'aria-hidden';
+  var _dataAriaHidden = 'lity-' + _attrAriaHidden;
 
-    var _focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
+  var _focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
 
-    var _defaultOptions = {
-        handler: null,
-        handlers: {
-            image: imageHandler,
-            inline: inlineHandler,
-            youtube: youtubeHandler,
-            vimeo: vimeoHandler,
-            googlemaps: googlemapsHandler,
-            facebookvideo: facebookvideoHandler,
-            iframe: iframeHandler
-        },
-        template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
+  var _defaultOptions = {
+    handler: null,
+    handlers: {
+      image: imageHandler,
+      inline: inlineHandler,
+      youtube: youtubeHandler,
+      vimeo: vimeoHandler,
+      googlemaps: googlemapsHandler,
+      facebookvideo: facebookvideoHandler,
+      iframe: iframeHandler
+    },
+    template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
+  };
+
+  var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
+  var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
+  var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
+  var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
+  var _facebookvideoRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
+
+  var _transitionEndEvent = (function() {
+    var el = document.createElement('div');
+
+    var transEndEventNames = {
+      WebkitTransition: 'webkitTransitionEnd',
+      MozTransition: 'transitionend',
+      OTransition: 'oTransitionEnd otransitionend',
+      transition: 'transitionend'
     };
 
-    var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
-    var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
-    var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
-    var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
-    var _facebookvideoRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
-
-    var _transitionEndEvent = (function() {
-        var el = document.createElement('div');
-
-        var transEndEventNames = {
-            WebkitTransition: 'webkitTransitionEnd',
-            MozTransition: 'transitionend',
-            OTransition: 'oTransitionEnd otransitionend',
-            transition: 'transitionend'
-        };
-
-        for (var name in transEndEventNames) {
-            if (el.style[name] !== undefined) {
-                return transEndEventNames[name];
-            }
-        }
-
-        return false;
-    })();
-
-    function transitionEnd(element) {
-        var deferred = _deferred();
-
-        if (!_transitionEndEvent || !element.length) {
-            deferred.resolve();
-        } else {
-            element.one(_transitionEndEvent, deferred.resolve);
-            setTimeout(deferred.resolve, 500);
-        }
-
-        return deferred.promise();
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return transEndEventNames[name];
+      }
     }
 
-    function settings(currSettings, key, value) {
-        if (arguments.length === 1) {
-            return $.extend({}, currSettings);
-        }
+    return false;
+  })();
 
-        if (typeof key === 'string') {
-            if (typeof value === 'undefined') {
-                return typeof currSettings[key] === 'undefined'
+  function transitionEnd(element) {
+    var deferred = _deferred();
+
+    if (!_transitionEndEvent || !element.length) {
+      deferred.resolve();
+    } else {
+      element.one(_transitionEndEvent, deferred.resolve);
+      setTimeout(deferred.resolve, 500);
+    }
+
+    return deferred.promise();
+  }
+
+  function settings(currSettings, key, value) {
+    if (arguments.length === 1) {
+      return $.extend({}, currSettings);
+    }
+
+    if (typeof key === 'string') {
+      if (typeof value === 'undefined') {
+        return typeof currSettings[key] === 'undefined'
                     ? null
                     : currSettings[key];
-            }
+      }
 
-            currSettings[key] = value;
-        } else {
-            $.extend(currSettings, key);
-        }
-
-        return this;
+      currSettings[key] = value;
+    } else {
+      $.extend(currSettings, key);
     }
 
-    function parseQueryParams(params) {
-        var pairs = decodeURI(params.split('#')[0]).split('&');
-        var obj = {}, p;
+    return this;
+  }
 
-        for (var i = 0, n = pairs.length; i < n; i++) {
-            if (!pairs[i]) {
-                continue;
-            }
+  function parseQueryParams(params) {
+    var pairs = decodeURI(params.split('#')[0]).split('&');
+    var obj = {}, p;
 
-            p = pairs[i].split('=');
-            obj[p[0]] = p[1];
-        }
+    for (var i = 0, n = pairs.length; i < n; i++) {
+      if (!pairs[i]) {
+        continue;
+      }
 
-        return obj;
+      p = pairs[i].split('=');
+      obj[p[0]] = p[1];
     }
 
-    function appendQueryParams(url, params) {
-        return url + (url.indexOf('?') > -1 ? '&' : '?') + $.param(params);
+    return obj;
+  }
+
+  function appendQueryParams(url, params) {
+    return url + (url.indexOf('?') > -1 ? '&' : '?') + $.param(params);
+  }
+
+  function transferHash(originalUrl, newUrl) {
+    var pos = originalUrl.indexOf('#');
+
+    if (-1 === pos) {
+      return newUrl;
     }
 
-    function transferHash(originalUrl, newUrl) {
-        var pos = originalUrl.indexOf('#');
-
-        if (-1 === pos) {
-            return newUrl;
-        }
-
-        if (pos > 0) {
-            originalUrl = originalUrl.substr(pos);
-        }
-
-        return newUrl + originalUrl;
+    if (pos > 0) {
+      originalUrl = originalUrl.substr(pos);
     }
 
-    function error(msg) {
-        return $('<span class="lity-error"/>').append(msg);
-    }
+    return newUrl + originalUrl;
+  }
 
-    function imageHandler(target, instance) {
-        var desc = (instance.opener() && instance.opener().data('lity-desc')) || 'Image with no description';
-        var img = $('<img src="' + target + '" alt="' + desc + '"/>');
-        var deferred = _deferred();
-        var failed = function() {
-            deferred.reject(error('Failed loading image'));
-        };
+  function error(msg) {
+    return $('<span class="lity-error"/>').append(msg);
+  }
 
-        img
+  function imageHandler(target, instance) {
+    var desc = (instance.opener() && instance.opener().data('lity-desc')) || 'Image with no description';
+    var img = $('<img src="' + target + '" alt="' + desc + '"/>');
+    var deferred = _deferred();
+    var failed = function() {
+      deferred.reject(error('Failed loading image'));
+    };
+
+    img
             .on('load', function() {
-                if (this.naturalWidth === 0) {
-                    return failed();
-                }
+              if (this.naturalWidth === 0) {
+                return failed();
+              }
 
-                deferred.resolve(img);
+              deferred.resolve(img);
             })
             .on('error', failed)
         ;
 
-        return deferred.promise();
+    return deferred.promise();
+  }
+
+  imageHandler.test = function(target) {
+    return _imageRegexp.test(target);
+  };
+
+  function inlineHandler(target, instance) {
+    var el, placeholder, hasHideClass;
+
+    try {
+      el = $(target);
+    } catch (e) {
+      return false;
     }
 
-    imageHandler.test = function(target) {
-        return _imageRegexp.test(target);
-    };
+    if (!el.length) {
+      return false;
+    }
 
-    function inlineHandler(target, instance) {
-        var el, placeholder, hasHideClass;
+    placeholder = $('<i style="display:none !important"/>');
+    hasHideClass = el.hasClass('lity-hide');
 
-        try {
-            el = $(target);
-        } catch (e) {
-            return false;
-        }
-
-        if (!el.length) {
-            return false;
-        }
-
-        placeholder = $('<i style="display:none !important"/>');
-        hasHideClass = el.hasClass('lity-hide');
-
-        instance
+    instance
             .element()
             .one('lity:remove', function() {
-                placeholder
+              placeholder
                     .before(el)
                     .remove()
                 ;
 
-                if (hasHideClass && !el.closest('.lity-content').length) {
-                    el.addClass('lity-hide');
-                }
+              if (hasHideClass && !el.closest('.lity-content').length) {
+                el.addClass('lity-hide');
+              }
             })
         ;
 
-        return el
+    return el
             .removeClass('lity-hide')
             .after(placeholder)
         ;
+  }
+
+  function youtubeHandler(target) {
+    var matches = _youtubeRegex.exec(target);
+
+    if (!matches) {
+      return false;
     }
 
-    function youtubeHandler(target) {
-        var matches = _youtubeRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframeHandler(
+    return iframeHandler(
             transferHash(
                 target,
                 appendQueryParams(
                     'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
                     $.extend(
-                        {
-                            autoplay: 1
-                        },
+                      {
+                        autoplay: 1
+                      },
                         parseQueryParams(matches[5] || '')
                     )
                 )
             )
         );
+  }
+
+  function vimeoHandler(target) {
+    var matches = _vimeoRegex.exec(target);
+
+    if (!matches) {
+      return false;
     }
 
-    function vimeoHandler(target) {
-        var matches = _vimeoRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframeHandler(
+    return iframeHandler(
             transferHash(
                 target,
                 appendQueryParams(
                     'https://player.vimeo.com/video/' + matches[3],
                     $.extend(
-                        {
-                            autoplay: 1
-                        },
+                      {
+                        autoplay: 1
+                      },
                         parseQueryParams(matches[4] || '')
                     )
                 )
             )
         );
+  }
+
+  function facebookvideoHandler(target) {
+    var matches = _facebookvideoRegex.exec(target);
+
+    if (!matches) {
+      return false;
     }
 
-    function facebookvideoHandler(target) {
-        var matches = _facebookvideoRegex.exec(target);
+    if (0 !== target.indexOf('http')) {
+      target = 'https:' + target;
+    }
 
-        if (!matches) {
-            return false;
-        }
-
-        if (0 !== target.indexOf('http')) {
-            target = 'https:' + target;
-        }
-
-        return iframeHandler(
+    return iframeHandler(
             transferHash(
                 target,
                 appendQueryParams(
                     'https://www.facebook.com/plugins/video.php?href=' + target,
                     $.extend(
-                        {
-                            autoplay: 1
-                        },
+                      {
+                        autoplay: 1
+                      },
                         parseQueryParams(matches[4] || '')
                     )
                 )
             )
         );
+  }
+
+  function googlemapsHandler(target) {
+    var matches = _googlemapsRegex.exec(target);
+
+    if (!matches) {
+      return false;
     }
 
-    function googlemapsHandler(target) {
-        var matches = _googlemapsRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframeHandler(
+    return iframeHandler(
             transferHash(
                 target,
                 appendQueryParams(
                     'https://www.google.' + matches[3] + '/maps?' + matches[6],
-                    {
-                        output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
-                    }
+                  {
+                    output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
+                  }
                 )
             )
         );
-    }
+  }
 
-    function iframeHandler(target) {
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"/></div>';
-    }
+  function iframeHandler(target) {
+    return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"/></div>';
+  }
 
-    function winHeight() {
-        return document.documentElement.clientHeight
+  function winHeight() {
+    return document.documentElement.clientHeight
             ? document.documentElement.clientHeight
             : Math.round(_win.height());
+  }
+
+  function keydown(e) {
+    var current = currentInstance();
+
+    if (!current) {
+      return;
     }
-
-    function keydown(e) {
-        var current = currentInstance();
-
-        if (!current) {
-            return;
-        }
 
         // ESC key
-        if (e.keyCode === 27) {
-            current.close();
-        }
+    if (e.keyCode === 27) {
+      current.close();
+    }
 
         // TAB key
-        if (e.keyCode === 9) {
-            handleTabKey(e, current);
-        }
+    if (e.keyCode === 9) {
+      handleTabKey(e, current);
     }
+  }
 
-    function handleTabKey(e, instance) {
-        var focusableElements = instance.element().find(_focusableElementsSelector);
-        var focusedIndex = focusableElements.index(document.activeElement);
+  function handleTabKey(e, instance) {
+    var focusableElements = instance.element().find(_focusableElementsSelector);
+    var focusedIndex = focusableElements.index(document.activeElement);
 
-        if (e.shiftKey && focusedIndex <= 0) {
-            focusableElements.get(focusableElements.length - 1).focus();
-            e.preventDefault();
-        } else if (!e.shiftKey && focusedIndex === focusableElements.length - 1) {
-            focusableElements.get(0).focus();
-            e.preventDefault();
-        }
+    if (e.shiftKey && focusedIndex <= 0) {
+      focusableElements.get(focusableElements.length - 1).focus();
+      e.preventDefault();
+    } else if (!e.shiftKey && focusedIndex === focusableElements.length - 1) {
+      focusableElements.get(0).focus();
+      e.preventDefault();
     }
+  }
 
-    function resize() {
-        $.each(_instances, function(i, instance) {
-            instance.resize();
-        });
-    }
+  function resize() {
+    $.each(_instances, function(i, instance) {
+      instance.resize();
+    });
+  }
 
-    function registerInstance(instanceToRegister) {
-        if (1 === _instances.unshift(instanceToRegister)) {
-            _html.addClass('lity-active');
+  function registerInstance(instanceToRegister) {
+    if (1 === _instances.unshift(instanceToRegister)) {
+      _html.addClass('lity-active');
 
-            _win
+      _win
                 .on({
-                    resize: resize,
-                    keydown: keydown
+                  resize: resize,
+                  keydown: keydown
                 })
             ;
-        }
+    }
 
-        $('body > *').not(instanceToRegister.element())
+    $('body > *').not(instanceToRegister.element())
             .addClass('lity-hidden')
             .each(function() {
-                var el = $(this);
+              var el = $(this);
 
-                if (undefined !== el.data(_dataAriaHidden)) {
-                    return;
-                }
+              if (undefined !== el.data(_dataAriaHidden)) {
+                return;
+              }
 
-                el.data(_dataAriaHidden, el.attr(_attrAriaHidden) || null);
+              el.data(_dataAriaHidden, el.attr(_attrAriaHidden) || null);
             })
             .attr(_attrAriaHidden, 'true')
         ;
-    }
+  }
 
-    function removeInstance(instanceToRemove) {
-        var show;
+  function removeInstance(instanceToRemove) {
+    var show;
 
-        instanceToRemove
+    instanceToRemove
             .element()
             .attr(_attrAriaHidden, 'true')
         ;
 
-        if (1 === _instances.length) {
-            _html.removeClass('lity-active');
+    if (1 === _instances.length) {
+      _html.removeClass('lity-active');
 
-            _win
+      _win
                 .off({
-                    resize: resize,
-                    keydown: keydown
+                  resize: resize,
+                  keydown: keydown
                 })
             ;
-        }
+    }
 
-        _instances = $.grep(_instances, function(instance) {
-            return instanceToRemove !== instance;
-        });
+    _instances = $.grep(_instances, function(instance) {
+      return instanceToRemove !== instance;
+    });
 
-        if (!!_instances.length) {
-            show = _instances[0].element();
-        } else {
-            show = $('.lity-hidden');
-        }
+    if (_instances.length) {
+      show = _instances[0].element();
+    } else {
+      show = $('.lity-hidden');
+    }
 
-        show
+    show
             .removeClass('lity-hidden')
             .each(function() {
-                var el = $(this), oldAttr = el.data(_dataAriaHidden);
+              var el = $(this), oldAttr = el.data(_dataAriaHidden);
 
-                if (!oldAttr) {
-                    el.removeAttr(_attrAriaHidden);
-                } else {
-                    el.attr(_attrAriaHidden, oldAttr);
-                }
+              if (!oldAttr) {
+                el.removeAttr(_attrAriaHidden);
+              } else {
+                el.attr(_attrAriaHidden, oldAttr);
+              }
 
-                el.removeData(_dataAriaHidden);
+              el.removeData(_dataAriaHidden);
             })
         ;
+  }
+
+  function currentInstance() {
+    if (0 === _instances.length) {
+      return null;
     }
 
-    function currentInstance() {
-        if (0 === _instances.length) {
-            return null;
+    return _instances[0];
+  }
+
+  function factory(target, instance, handlers, preferredHandler) {
+    var handler = 'inline', content;
+
+    var currentHandlers = $.extend({}, handlers);
+
+    if (preferredHandler && currentHandlers[preferredHandler]) {
+      content = currentHandlers[preferredHandler](target, instance);
+      handler = preferredHandler;
+    } else {
+            // Run inline and iframe handlers after all other handlers
+      $.each(['inline', 'iframe'], function(i, name) {
+        delete currentHandlers[name];
+
+        currentHandlers[name] = handlers[name];
+      });
+
+      $.each(currentHandlers, function(name, currentHandler) {
+                // Handler might be "removed" by setting callback to null
+        if (!currentHandler) {
+          return true;
         }
 
-        return _instances[0];
-    }
-
-    function factory(target, instance, handlers, preferredHandler) {
-        var handler = 'inline', content;
-
-        var currentHandlers = $.extend({}, handlers);
-
-        if (preferredHandler && currentHandlers[preferredHandler]) {
-            content = currentHandlers[preferredHandler](target, instance);
-            handler = preferredHandler;
-        } else {
-            // Run inline and iframe handlers after all other handlers
-            $.each(['inline', 'iframe'], function(i, name) {
-                delete currentHandlers[name];
-
-                currentHandlers[name] = handlers[name];
-            });
-
-            $.each(currentHandlers, function(name, currentHandler) {
-                // Handler might be "removed" by setting callback to null
-                if (!currentHandler) {
-                    return true;
-                }
-
-                if (
+        if (
                     currentHandler.test &&
                     !currentHandler.test(target, instance)
                 ) {
-                    return true;
-                }
-
-                content = currentHandler(target, instance);
-
-                if (false !== content) {
-                    handler = name;
-                    return false;
-                }
-            });
+          return true;
         }
 
-        return {handler: handler, content: content || ''};
+        content = currentHandler(target, instance);
+
+        if (false !== content) {
+          handler = name;
+          return false;
+        }
+      });
     }
 
-    function Lity(target, options, opener, activeElement) {
-        var self = this;
-        var result;
-        var isReady = false;
-        var isClosed = false;
-        var element;
-        var content;
+    return {handler: handler, content: content || ''};
+  }
 
-        options = $.extend(
+  function Lity(target, options, opener, activeElement) {
+    var self = this;
+    var result;
+    var isReady = false;
+    var isClosed = false;
+    var element;
+    var content;
+
+    options = $.extend(
             {},
             _defaultOptions,
             options
         );
 
-        element = $(options.template);
+    element = $(options.template);
 
         // -- API --
 
-        self.element = function() {
-            return element;
-        };
+    self.element = function() {
+      return element;
+    };
 
-        self.opener = function() {
-            return opener;
-        };
+    self.opener = function() {
+      return opener;
+    };
 
-        self.options  = $.proxy(settings, self, options);
-        self.handlers = $.proxy(settings, self, options.handlers);
+    self.options  = $.proxy(settings, self, options);
+    self.handlers = $.proxy(settings, self, options.handlers);
 
-        self.resize = function() {
-            if (!isReady || isClosed) {
-                return;
-            }
+    self.resize = function() {
+      if (!isReady || isClosed) {
+        return;
+      }
 
-            content
+      content
                 .css('max-height', winHeight() + 'px')
                 .trigger('lity:resize', [self])
             ;
-        };
+    };
 
-        self.close = function() {
-            if (!isReady || isClosed) {
-                return;
-            }
+    self.close = function() {
+      if (!isReady || isClosed) {
+        return;
+      }
 
-            isClosed = true;
+      isClosed = true;
 
-            removeInstance(self);
+      removeInstance(self);
 
-            var deferred = _deferred();
+      var deferred = _deferred();
 
             // We return focus only if the current focus is inside this instance
-            if (
+      if (
                 activeElement &&
                 (
                     document.activeElement === element[0] ||
                     $.contains(element[0], document.activeElement)
                 )
             ) {
-                try {
-                    activeElement.focus();
-                } catch (e) {
+        try {
+          activeElement.focus();
+        } catch (e) {
                     // Ignore exceptions, eg. for SVG elements which can't be
                     // focused in IE11
-                }
-            }
+        }
+      }
 
-            content.trigger('lity:close', [self]);
+      content.trigger('lity:close', [self]);
 
-            element
+      element
                 .removeClass('lity-opened')
                 .addClass('lity-closed')
             ;
 
-            transitionEnd(content.add(element))
+      transitionEnd(content.add(element))
                 .always(function() {
-                    content.trigger('lity:remove', [self]);
-                    element.remove();
-                    element = undefined;
-                    deferred.resolve();
+                  content.trigger('lity:remove', [self]);
+                  element.remove();
+                  element = undefined;
+                  deferred.resolve();
                 })
             ;
 
-            return deferred.promise();
-        };
+      return deferred.promise();
+    };
 
         // -- Initialization --
 
-        result = factory(target, self, options.handlers, options.handler);
+    result = factory(target, self, options.handlers, options.handler);
 
-        element
+    element
             .attr(_attrAriaHidden, 'false')
             .addClass('lity-loading lity-opened lity-' + result.handler)
             .appendTo('body')
             .focus()
             .on('click', '[data-lity-close]', function(e) {
-                if ($(e.target).is('[data-lity-close]')) {
-                    self.close();
-                }
+              if ($(e.target).is('[data-lity-close]')) {
+                self.close();
+              }
             })
             .trigger('lity:open', [self])
         ;
 
-        registerInstance(self);
+    registerInstance(self);
 
-        $.when(result.content)
+    $.when(result.content)
             .always(ready)
         ;
 
-        function ready(result) {
-            content = $(result)
+    function ready(result) {
+      content = $(result)
                 .css('max-height', winHeight() + 'px')
             ;
 
-            element
+      element
                 .find('.lity-loader')
                 .each(function() {
-                    var loader = $(this);
+                  var loader = $(this);
 
-                    transitionEnd(loader)
+                  transitionEnd(loader)
                         .always(function() {
-                            loader.remove();
+                          loader.remove();
                         })
                     ;
                 })
             ;
 
-            element
+      element
                 .removeClass('lity-loading')
                 .find('.lity-content')
                 .empty()
                 .append(content)
             ;
 
-            isReady = true;
+      isReady = true;
 
-            content
+      content
                 .trigger('lity:ready', [self])
             ;
-        }
+    }
+  }
+
+  function lity(target, options, opener) {
+    if (!target.preventDefault) {
+      opener = $(opener);
+    } else {
+      target.preventDefault();
+      opener = $(this);
+      target = opener.data('lity-target') || opener.attr('href') || opener.attr('src');
     }
 
-    function lity(target, options, opener) {
-        if (!target.preventDefault) {
-            opener = $(opener);
-        } else {
-            target.preventDefault();
-            opener = $(this);
-            target = opener.data('lity-target') || opener.attr('href') || opener.attr('src');
-        }
-
-        var instance = new Lity(
+    var instance = new Lity(
             target,
             $.extend(
                 {},
@@ -618,17 +618,17 @@
             document.activeElement
         );
 
-        if (!target.preventDefault) {
-            return instance;
-        }
+    if (!target.preventDefault) {
+      return instance;
     }
+  }
 
-    lity.version  = '@VERSION';
-    lity.options  = $.proxy(settings, lity, _defaultOptions);
-    lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
-    lity.current  = currentInstance;
+  lity.version  = '@VERSION';
+  lity.options  = $.proxy(settings, lity, _defaultOptions);
+  lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
+  lity.current  = currentInstance;
 
-    $(document).on('click.lity', '[data-lity]', lity);
+  $(document).on('click.lity', '[data-lity]', lity);
 
-    return lity;
+  return lity;
 }));

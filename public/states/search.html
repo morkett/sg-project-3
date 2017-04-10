@@ -1,41 +1,34 @@
-<!-- <a href="#" ui-sref="home">Back</a> -->
 <h2>Find A Movie</h2>
 <div ng-init="movies.getSearchDetails()" class="search-wrap">
-  <section class="signUp search-inner-wrap">
-<form autocomplete="off" class="searchForm">
+    <section class="signUp search-inner-wrap">
+        <form autocomplete="off" class="searchForm">
 
-  <input id="searchForm" name="searchForm"
-  ng-class="{searchBarMove: movies.searchIndex}" ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
-  <label for="searchForm" id="searchFormLabel" ng-class="{searchFormLabelDirty: movies.searchTerm.length > 0, searchBarLabelMove: movies.searchIndex}">Type in the name of a movie and press enter</label>
-    <input type="submit" class="search-submit" ng-click="movies.getSearchDetails(); movies.searchClicked(true)">
+            <input id="searchForm" name="searchForm" ng-class="{searchBarMove: movies.searchIndex}" ng-model="movies.searchTerm" class="signUpLabelEmail search-bar" ng-submit/>
+            <label for="searchForm" id="searchFormLabel" ng-class="{searchFormLabelDirty: movies.searchTerm.length > 0, searchBarLabelMove: movies.searchIndex}">Type in the name of a movie and press enter</label>
+            <input type="submit" class="search-submit" ng-click="movies.getSearchDetails(); movies.searchClicked(true)">
 
-</form>
-<!-- <p ng-if="movies.results === undefined">I didnt get that</p> -->
-<div class="searchResultsWrapper" ng-class="{searchMovieClicked: movies.searchIndex}"
-ng-click="movies.getSearchDetails(); movies.searchClicked(false)">
-<div class="movie-horizontal-container fade-in">
-    <div class="movie-horizontal fade-in">
-        <ul class="search-bg fade-in" ng-if="result.backdrop_path !== null">
+        </form>
+        <div class="searchResultsWrapper" ng-class="{searchMovieClicked: movies.searchIndex}" ng-click="movies.getSearchDetails(); movies.searchClicked(false)">
+            <div class="movie-horizontal-container fade-in">
+                <div class="movie-horizontal fade-in">
+                    <ul class="search-bg fade-in" ng-if="result.backdrop_path !== null">
 
 
-            <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
+                        <li ng-repeat="result in movies.results |limitTo: 20" ng-if="result.backdrop_path !== null">
 
-                    <p ui-sref="movieDetails({movieId:result.id})" class=" movie-text">
-                        <!-- slice to reduce date -->
-                      {{ result.title }} <br> {{ result.release_date }}
+                            <p ui-sref="movieDetails({movieId:result.id})" class=" movie-text">
+                                {{ result.title }} <br> {{ result.release_date }}
 
-                    </p>
-                    <a href="#" ui-sref="movieDetails({movieId:result.id})"
-                    class="imgContainer">
-                        <img ng-if="result.backdrop_path !== null" src="http://image.tmdb.org/t/p/w780//{{result.backdrop_path}}" class="fade-in" alt="{{ result.title}}" />
-                    </a>
-                    <input type="hidden" value="{{result.id}}" />
+                            </p>
+                            <a href="#" ui-sref="movieDetails({movieId:result.id})" class="imgContainer">
+                                <img ng-if="result.backdrop_path !== null" src="http://image.tmdb.org/t/p/w780//{{result.backdrop_path}}" class="fade-in" alt="{{ result.title}}" />
+                            </a>
+                            <input type="hidden" value="{{result.id}}" />
 
-            </li>
-            <!-- <li class="phantom"></li> -->
-        </ul>
-    </div>
-</div>
-</div>
-</section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
