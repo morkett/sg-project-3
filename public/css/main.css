@@ -1127,7 +1127,8 @@ section
     background: rgba(26, 26, 26, 1);
 }
 
-.detailsSection h2
+.detailsSection h2,
+.detailsSection h3
 {
     font-size: 1.8em;
 
@@ -1140,6 +1141,13 @@ section
     margin-bottom: 25px;
 
     background: rgba(26, 26, 26, 1);
+}
+
+.detailsSection h3
+{
+    font-size: 1.5em;
+
+    position: relative;
 }
 
 .details-container
@@ -1191,20 +1199,9 @@ section
 .icon,
 .icon:hover
 {
-    display: flex;
+    display: block;
 
-    width: 50px;
-    height: 50px;
     margin: 10px;
-    padding: 10px;
-
-    justify-content: center;
-    align-items: center;
-}
-
-.icon-container
-{
-    display: flex;
 
     justify-content: center;
     align-items: center;
