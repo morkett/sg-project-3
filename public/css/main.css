@@ -429,7 +429,7 @@ nav
     text-align: center;
 
     color: #fff;
-    border: 2px solid #007849;
+    border: 4px solid #007849 !important;
     /*border-color: transparent;*/
     background: rgba(26, 26, 26, 1);
 }
