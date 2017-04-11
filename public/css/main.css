@@ -414,7 +414,6 @@ nav
 .signUp
 {
     width: 500px;
-    height: 500px;
 }
 
 
@@ -504,6 +503,11 @@ input:focus::-webkit-input-placeholder
 .h2-title-search
 {
     margin-top: 100px;
+}
+
+.h2-title-login
+{
+    margin-top: 70px;
 }
 
 .searchForm
@@ -1111,9 +1115,7 @@ section
 }
 .search-wrap .movie-horizontal-container
 {
-    height: 400px;
     padding: 0;
-    /*border: 1px solid red;*/
 
     background-color: transparent;
 }
@@ -1121,9 +1123,6 @@ section
 .search-wrap .movie-horizontal li
 {
     overflow: visible;
-
-    width: auto;
-    height: auto;
 }
 
 .search-wrap .movie-horizontal li:hover
@@ -1136,7 +1135,7 @@ section
 
 .search-bg
 {
-    background-color: rgba(26, 26, 26, 1);
+    background-color: transparent;
 }
 
 .search-inner-wrap
@@ -1327,9 +1326,23 @@ section
 
 @media only screen and (max-width: 873px)
 {
+    .mobile-nav,
+    .mobile-nav:hover
+    {
+        display: flex;
+
+        width: 100%;
+
+        justify-content: center;
+        align-items: center;
+    }
     .mobile-nav-btn
     {
+        z-index: 19999;
+
         display: block;
+
+        border-top: 2px solid rgba(26, 26, 26, .5);
     }
     .details-container
     {
@@ -1497,11 +1510,24 @@ section
         padding: 10% 0;
         padding-bottom: 30%;
 
+        animation: mobile-nav-fadeIn .5s linear forwards;
+
         opacity: 1;
-        background-color: #007849;
+        background-color: rgba(0, 120, 73, 1);
 
         justify-content: space-around;
         align-items: center;
+    }
+    @keyframes mobile-nav-fadeIn
+    {
+        from
+        {
+            opacity: 0;
+        }
+        to
+        {
+            opacity: 1;
+        }
     }
 
     .navClicked .mobile-nav
