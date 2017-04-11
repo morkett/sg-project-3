@@ -7,7 +7,6 @@ function AuthController($state, AuthFactory) {
   controller.navClicked = function ($index) {
     controller.navIndex = $index;
     console.log($index);
-
   };
 
 //////////////////////////////////////////////////
